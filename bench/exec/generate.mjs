@@ -57,8 +57,13 @@ function snapshotFiles(dir, base = '') {
 export function generateOne(scenario, { model = 'deepseek-flash', sessionsDir }) {
   const ws = setupWorkspace(scenario);
   const before = new Set(readdirSync(sessionsDir).filter((f) => f.endsWith('.jsonl')));
+  // This eval measures EXECUTION fidelity, not invocation — so force the skill to
+  // load (get its body into context) via an explicit preamble. Whether the model
+  // then FOLLOWS the loaded body is what the rubric scores. (Invocation is the
+  // separate bench/ benchmark's job; the temp workspace has no AGENTS.md.)
+  const prompt = `Use the \`${scenario.skill}\` skill for this task — load it and follow it.\n\n${scenario.prompt}`;
   try {
-    execFileSync('reasonix', ['run', '-dir', ws, '-model', model, '-max-steps', String(scenario.maxSteps), scenario.prompt],
+    execFileSync('reasonix', ['run', '-dir', ws, '-model', model, '-max-steps', String(scenario.maxSteps), prompt],
       { stdio: ['ignore', 'pipe', 'pipe'], env: process.env, timeout: 600000 });
   } catch { /* may hit max-steps / a pending ask; transcript still saved */ }
 

@@ -39,6 +39,19 @@ test('runMechanical dispatches by string and reports unknown checks', () => {
   assert.match(r.evidence, /unknown/i);
 });
 
+test('globs match ABSOLUTE tool-call paths as a suffix, and **/*.test.mjs matches test/ or tests/', () => {
+  // Real reasonix tool calls use absolute temp paths; the model may use test/ (singular).
+  const abs = [
+    { name: 'write_file', args: { path: '/tmp/exec-x/test/strings.test.mjs' }, resultText: 'wrote' },
+    { name: 'bash', args: { command: 'cd /tmp/exec-x && node --test test/' }, resultText: '# fail 1' },
+    { name: 'edit_file', args: { path: '/tmp/exec-x/src/strings.mjs' }, resultText: 'ok' },
+    { name: 'bash', args: { command: 'cd /tmp/exec-x && node --test test/' }, resultText: '# pass 1\n# fail 0' },
+  ];
+  assert.equal(editPrecedes(abs, '**/*.test.mjs', 'src/strings.mjs').pass, true);
+  assert.equal(failingTestRunBetween(abs, '**/*.test.mjs', 'src/strings.mjs').pass, true);
+  assert.equal(passingTestRunAfter(abs, 'src/strings.mjs').pass, true);
+});
+
 test('artifactExists + grepArtifactAbsent via runMechanical over a temp workspace', () => {
   const dir = mkdtempSync(join(tmpdir(), 'exec-'));
   mkdirSync(join(dir, 'docs'));
