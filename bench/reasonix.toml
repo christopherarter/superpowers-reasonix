@@ -1,0 +1,17 @@
+# Benchmark isolation config. The behavioral harness runs:
+#   reasonix run -dir <repo-root> ...
+# with this file copied to <repo-root>/reasonix.toml so config resolution
+# (flag > ./reasonix.toml > user config) picks it up. It exposes only this
+# repo's skills and hides the global convention root so results reflect
+# exactly the skills under ./skills.
+
+default_model = "deepseek-flash"
+
+[skills]
+paths = ["./skills"]
+excluded_paths = ["~/.reasonix/skills", "~/.agents/skills", "~/.agent/skills", "~/.claude/skills"]
+max_depth = 3
+
+[permissions]
+# Headless benchmark: never block on approval prompts.
+mode = "allow"
