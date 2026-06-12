@@ -47,3 +47,11 @@ test('parses the REAL flat reasonix tool-call shape {id,name,arguments}', () => 
   ].join('\n');
   assert.deepEqual(extractSkillInvocations(t), ['systematic-debugging', 'explore']);
 });
+
+test('counts a skill invoked via the slash_command path', () => {
+  // Captured verbatim: the model ran the writing-skills skill as a slash command.
+  const t = JSON.stringify({ role: 'assistant', tool_calls: [
+    { id: 'c1', name: 'slash_command', arguments: JSON.stringify({ command: 'writing-skills', arguments: 'Explain the SKILL.md structure' }) },
+  ] });
+  assert.deepEqual(extractSkillInvocations(t), ['writing-skills']);
+});

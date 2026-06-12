@@ -28,6 +28,15 @@ export function extractSkillInvocations(jsonlText) {
           const args = JSON.parse(rawArgs || '{}');
           if (args && typeof args.name === 'string') invocations.push(args.name);
         } catch { /* unparseable args: skip this call */ }
+      } else if (name === 'slash_command') {
+        // The model can also invoke a skill via its user slash-command path:
+        // slash_command({ command: "<skill-name>", arguments: "..." }).
+        try {
+          const args = JSON.parse(rawArgs || '{}');
+          if (args && typeof args.command === 'string') {
+            invocations.push(args.command.replace(/^\//, ''));
+          }
+        } catch { /* unparseable args: skip this call */ }
       } else if (WRAPPER_TOOLS.has(name)) {
         invocations.push(name);
       }
