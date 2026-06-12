@@ -1,6 +1,6 @@
 ---
 name: subagent-driven-development
-description: Executing a plan? Load this — fresh subagent per task, review after each.
+description: Plan execution with a FRESH SUBAGENT per task, review each? Load this, not executing-plans.
 ---
 
 # Subagent-Driven Development

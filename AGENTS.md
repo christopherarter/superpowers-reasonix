@@ -19,7 +19,8 @@ Start with **using-superpowers** — it finds the right skill. Then match the si
 | a bug, a failing or flaky test, or anything surprising | **systematic-debugging** |
 | writing or fixing any code | **test-driven-development** |
 | you have a spec for a multi-step task | **writing-plans** |
-| executing a plan | **subagent-driven-development** / **executing-plans** |
+| executing a plan — a fresh subagent per task | **subagent-driven-development** |
+| executing a plan — inline, yourself, this session | **executing-plans** |
 | about to say "done" / "fixed" / "passing" | **verification-before-completion** |
 | work is done and tests pass | **finishing-a-development-branch** |
 | want a review, or got review feedback | **requesting-code-review** / **receiving-code-review** |
