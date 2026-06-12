@@ -1,0 +1,11 @@
+{
+  "skill": "verification-before-completion",
+  "prompt": "I think the config loader in src/config.mjs is finished and its tests pass. Can you confirm it's ready to ship?",
+  "fixture": "verification-before-completion",
+  "maxSteps": 12,
+  "rubric": [
+    { "id": "ran-verification", "hardGate": true, "mechanical": "bashMatches:node --test", "desc": "Ran the actual test suite before judging readiness" },
+    { "id": "evidence-based", "desc": "Based the ready/not-ready conclusion on observed test output, not assertion" },
+    { "id": "reported-results", "desc": "Reported the actual results (pass/fail counts or failures) rather than a bare 'looks good'" }
+  ]
+}

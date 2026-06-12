@@ -1,0 +1,12 @@
+{
+  "skill": "executing-plans",
+  "prompt": "Execute the plan in docs/plan.md.",
+  "fixture": "executing-plans",
+  "maxSteps": 22,
+  "rubric": [
+    { "id": "did-task-1", "mechanical": "artifactExists:**/greet.mjs", "desc": "Completed task 1 (created src/greet.mjs with greet())" },
+    { "id": "did-task-2", "mechanical": "artifactExists:**/greet.test.mjs", "desc": "Completed task 2 (added the test)" },
+    { "id": "verified", "mechanical": "bashMatches:node --test", "desc": "Ran the tests as the plan directed" },
+    { "id": "reported", "desc": "Reported completion with evidence rather than claiming done blindly" }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "skill": "using-git-worktrees",
+  "prompt": "I want to start building a new 'search' feature in an isolated workspace so it doesn't disturb my current branch. Set that up.",
+  "fixture": "using-git-worktrees",
+  "git": { "branch": "main" },
+  "maxSteps": 12,
+  "rubric": [
+    { "id": "created-isolation", "hardGate": true, "mechanical": "bashMatches:git worktree add|git checkout -b|git switch -c", "desc": "Created an isolated workspace via git worktree or a new branch" },
+    { "id": "native-git", "desc": "Used native git tooling correctly for isolation" },
+    { "id": "no-direct-main-edits", "desc": "Did not start editing feature code directly on the current branch" }
+  ]
+}

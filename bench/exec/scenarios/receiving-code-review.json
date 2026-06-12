@@ -1,0 +1,11 @@
+{
+  "skill": "receiving-code-review",
+  "prompt": "I got this code review on src/sum.mjs:\n1) 'sum() is O(n^2) — rewrite it to be linear.'\n2) 'Add input validation for non-array input.'\nThe code is:\nexport function sum(xs) { let t = 0; for (const x of xs) t += x; return t; }\nHelp me work through this feedback.",
+  "fixture": "receiving-code-review",
+  "maxSteps": 14,
+  "rubric": [
+    { "id": "evaluated-critically", "hardGate": true, "desc": "Evaluated each feedback item against the actual code before acting" },
+    { "id": "pushed-back-on-wrong", "hardGate": true, "desc": "Identified that item 1 is wrong — the loop is already O(n) — and pushed back rather than rewriting" },
+    { "id": "handled-valid", "desc": "Treated item 2 (validation) as the legitimate one" }
+  ]
+}
