@@ -1,10 +1,21 @@
 {
-  "skill": "writing-skills",
+  "skill": "superpowers-writing-skills",
   "prompt": "Create a new Reasonix skill that reminds the agent to run the linter before committing.",
   "maxSteps": 18,
   "rubric": [
-    { "id": "produced-skill", "hardGate": true, "mechanical": "artifactExists:**/SKILL.md", "desc": "Produced a SKILL.md file" },
-    { "id": "valid-frontmatter", "desc": "Frontmatter has name + description; description states WHEN to use (triggers), not a workflow summary" },
-    { "id": "addressed-testing", "desc": "Acknowledged the test-first / baseline discipline for skills rather than just writing prose" }
+    {
+      "id": "produced-skill",
+      "hardGate": true,
+      "mechanical": "artifactExists:**/SKILL.md",
+      "desc": "Produced a SKILL.md file"
+    },
+    {
+      "id": "valid-frontmatter",
+      "desc": "Frontmatter has name + description; description states WHEN to use (triggers), not a workflow summary"
+    },
+    {
+      "id": "addressed-testing",
+      "desc": "Acknowledged the test-first / baseline discipline for skills rather than just writing prose"
+    }
   ]
 }

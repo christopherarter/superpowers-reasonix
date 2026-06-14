@@ -1,6 +1,6 @@
 ---
-name: brainstorming
-description: Building a feature or starting from an idea? STOP. Load first to make an approved design before any code.
+name: superpowers-brainstorming
+description: Building a feature or starting from an idea? STOP. Load first for an approved design before code.
 ---
 
 # Brainstorming Ideas Into Designs
@@ -28,12 +28,12 @@ Create a `todo_write` entry for each of these and complete them in order:
 5. **Write design doc** — save to `docs/reasonix/specs/YYYY-MM-DD-<topic>-design.md` and commit
 6. **Spec self-review** — quick inline check for placeholders, contradictions, ambiguity, scope
 7. **User reviews written spec** — ask the user to review the spec file before proceeding
-8. **Transition to implementation** — use the **writing-plans** skill to create the implementation plan
+8. **Transition to implementation** — use the **superpowers-writing-plans** skill to create the implementation plan
 
 ## Process Flow
 
 ```dot
-digraph brainstorming {
+digraph superpowers-brainstorming {
     "Explore project context" [shape=box];
     "Ask clarifying questions" [shape=box];
     "Propose 2-3 approaches" [shape=box];
@@ -42,7 +42,7 @@ digraph brainstorming {
     "Write design doc" [shape=box];
     "Spec self-review (fix inline)" [shape=box];
     "User reviews spec?" [shape=diamond];
-    "Use writing-plans skill" [shape=doublecircle];
+    "Use superpowers-writing-plans skill" [shape=doublecircle];
 
     "Explore project context" -> "Ask clarifying questions";
     "Ask clarifying questions" -> "Propose 2-3 approaches";
@@ -53,11 +53,11 @@ digraph brainstorming {
     "Write design doc" -> "Spec self-review (fix inline)";
     "Spec self-review (fix inline)" -> "User reviews spec?";
     "User reviews spec?" -> "Write design doc" [label="changes requested"];
-    "User reviews spec?" -> "Use writing-plans skill" [label="approved"];
+    "User reviews spec?" -> "Use superpowers-writing-plans skill" [label="approved"];
 }
 ```
 
-**The terminal state is using the writing-plans skill.** Do NOT invoke any other implementation skill after brainstorming. The ONLY skill you invoke next is writing-plans.
+**The terminal state is using the superpowers-writing-plans skill.** Do NOT invoke any other implementation skill after superpowers-brainstorming. The ONLY skill you invoke next is superpowers-writing-plans.
 
 ## The Process
 
@@ -123,8 +123,8 @@ Wait for the user's response. If they request changes, make them and re-run the 
 
 **Implementation:**
 
-- Use the **writing-plans** skill to create a detailed implementation plan
-- Do NOT invoke any other skill. writing-plans is the next step.
+- Use the **superpowers-writing-plans** skill to create a detailed implementation plan
+- Do NOT invoke any other skill. superpowers-writing-plans is the next step.
 
 ## Key Principles
 

@@ -8,7 +8,7 @@
 paths = ["~/code/superpowers-reasonix/skills"]
 
 # Optional: hide individual skills without deleting them.
-# disabled_skills = ["executing-plans"]
+# disabled_skills = ["superpowers-executing-plans"]
 
 # Optional: per-tool models for Reasonix's native subagent tools. Use a cheap/fast
 # model for read-only investigation and a reasoning model for review.

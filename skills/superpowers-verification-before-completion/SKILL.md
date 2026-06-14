@@ -1,5 +1,5 @@
 ---
-name: verification-before-completion
+name: superpowers-verification-before-completion
 description: About to say done, fixed, or passing? STOP. Load first, show real evidence.
 ---
 

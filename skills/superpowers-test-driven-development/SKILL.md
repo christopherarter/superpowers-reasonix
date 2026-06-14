@@ -1,5 +1,5 @@
 ---
-name: test-driven-development
+name: superpowers-test-driven-development
 description: Writing or fixing any code? Load first — write the failing test before the code.
 ---
 
@@ -352,7 +352,7 @@ Can't check all boxes? You skipped TDD. Start over.
 
 Bug found? Write failing test reproducing it. Follow TDD cycle. Test proves fix and prevents regression.
 
-Never fix bugs without a test. (See the **systematic-debugging** skill for the full investigation flow.)
+Never fix bugs without a test. (See the **superpowers-systematic-debugging** skill for the full investigation flow.)
 
 ## Testing Anti-Patterns
 

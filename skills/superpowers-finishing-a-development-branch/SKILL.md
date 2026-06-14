@@ -1,5 +1,5 @@
 ---
-name: finishing-a-development-branch
+name: superpowers-finishing-a-development-branch
 description: Use when work is complete and tests pass — merge, PR, or clean up the branch
 ---
 
@@ -11,13 +11,13 @@ Guide completion of development work by presenting clear options and handling th
 
 **Core principle:** Verify tests → Detect environment → Present options → Execute choice → Clean up.
 
-**Announce at start:** "I'm using the finishing-a-development-branch skill to complete this work."
+**Announce at start:** "I'm using the superpowers-finishing-a-development-branch skill to complete this work."
 
 ## The Process
 
 ### Step 1: Verify Tests
 
-**Before presenting options, verify tests pass** (use the **verification-before-completion** skill):
+**Before presenting options, verify tests pass** (use the **superpowers-verification-before-completion** skill):
 
 ```bash
 npm test / cargo test / pytest / go test ./...

@@ -9,7 +9,7 @@ before / regression-check after the caveman skill-body migration.
 ```bash
 # Phase 1 — generate (self-contained; needs DEEPSEEK_API_KEY in env or .env)
 node bench/exec/generate.mjs                 # all scenarios
-node bench/exec/generate.mjs --only=test-driven-development
+node bench/exec/generate.mjs --only=superpowers-test-driven-development
 
 # Phase 2 — judge (in a Claude Code session): for each skill, build the payload
 node bench/exec/judge.mjs --only=<skill>     # prints the judge payload

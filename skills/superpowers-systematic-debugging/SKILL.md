@@ -1,6 +1,6 @@
 ---
-name: systematic-debugging
-description: Any bug, failing or flaky test, or surprise behavior? Load BEFORE you investigate or guess a fix.
+name: superpowers-systematic-debugging
+description: Any bug, failing or flaky test, or surprise behavior? Load BEFORE you investigate or guess.
 ---
 
 # Systematic Debugging
@@ -103,9 +103,9 @@ You MUST complete each phase before proceeding to the next.
 
 **Fix the root cause, not the symptom:**
 
-1. **Create Failing Test Case** — simplest reproduction, automated if possible. MUST have before fixing. Use the **test-driven-development** skill.
+1. **Create Failing Test Case** — simplest reproduction, automated if possible. MUST have before fixing. Use the **superpowers-test-driven-development** skill.
 2. **Implement Single Fix** — address the root cause. ONE change. No "while I'm here" improvements, no bundled refactoring.
-3. **Verify Fix** — test passes now? No other tests broken? Issue actually resolved? (Use the **verification-before-completion** skill.)
+3. **Verify Fix** — test passes now? No other tests broken? Issue actually resolved? (Use the **superpowers-verification-before-completion** skill.)
 4. **If Fix Doesn't Work** — STOP. Count fixes tried. If < 3: return to Phase 1 with new info. **If ≥ 3: STOP and question the architecture (step 5).** DON'T attempt fix #4 without architectural discussion.
 5. **If 3+ Fixes Failed: Question Architecture**
    - Pattern: each fix reveals new coupling elsewhere; fixes require "massive refactoring"; each fix creates new symptoms.
@@ -172,4 +172,4 @@ If systematic investigation reveals the issue is truly environmental, timing-dep
 - **Defense in Depth** — add validation at multiple layers after finding root cause
 - **Condition-Based Waiting** — replace arbitrary timeouts with condition polling
 
-**Related skills:** **test-driven-development** (Phase 4 failing test) · **verification-before-completion** (confirm the fix).
+**Related skills:** **superpowers-test-driven-development** (Phase 4 failing test) · **superpowers-verification-before-completion** (confirm the fix).

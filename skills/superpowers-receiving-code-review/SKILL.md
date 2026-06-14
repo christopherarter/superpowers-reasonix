@@ -1,5 +1,5 @@
 ---
-name: receiving-code-review
+name: superpowers-receiving-code-review
 description: Got review feedback? Load BEFORE changing anything — verify each point, push back if wrong.
 ---
 

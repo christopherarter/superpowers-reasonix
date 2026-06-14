@@ -1,12 +1,27 @@
 {
-  "skill": "systematic-debugging",
+  "skill": "superpowers-systematic-debugging",
   "prompt": "The median() test in tests/math.test.mjs is failing. Fix it.",
   "fixture": "systematic-debugging",
   "maxSteps": 18,
   "rubric": [
-    { "id": "investigated-first", "hardGate": true, "mechanical": "noWriteBeforeSignal:read_file", "desc": "Read/investigated the code before editing the source" },
-    { "id": "root-cause", "desc": "Identified the actual root cause (even-length median averages the two middle values) rather than patching a symptom" },
-    { "id": "fix-addresses-cause", "desc": "The fix corrects the root cause, not just the one failing assertion" },
-    { "id": "verified", "mechanical": "passingTestRunAfter:src/math.mjs", "desc": "Re-ran the test and saw it pass after the fix" }
+    {
+      "id": "investigated-first",
+      "hardGate": true,
+      "mechanical": "noWriteBeforeSignal:read_file",
+      "desc": "Read/investigated the code before editing the source"
+    },
+    {
+      "id": "root-cause",
+      "desc": "Identified the actual root cause (even-length median averages the two middle values) rather than patching a symptom"
+    },
+    {
+      "id": "fix-addresses-cause",
+      "desc": "The fix corrects the root cause, not just the one failing assertion"
+    },
+    {
+      "id": "verified",
+      "mechanical": "passingTestRunAfter:src/math.mjs",
+      "desc": "Re-ran the test and saw it pass after the fix"
+    }
   ]
 }

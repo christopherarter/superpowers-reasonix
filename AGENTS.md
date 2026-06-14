@@ -15,16 +15,16 @@ Match the situation:
 
 | If… | Load this FIRST |
 |---|---|
-| starting a feature, or you have a rough idea | **brainstorming** |
-| a bug, a failing or flaky test, or anything surprising | **systematic-debugging** |
-| writing or fixing any code | **test-driven-development** |
-| you have a spec for a multi-step task | **writing-plans** |
-| executing a written plan in this session | **executing-plans** |
-| about to say "done" / "fixed" / "passing" | **verification-before-completion** |
-| work is done and tests pass | **finishing-a-development-branch** |
-| you got code-review feedback (from `review` or a human) | **receiving-code-review** |
-| need an isolated workspace | **using-git-worktrees** |
-| making or editing a skill | **writing-skills** |
+| starting a feature, or you have a rough idea | **superpowers-brainstorming** |
+| a bug, a failing or flaky test, or anything surprising | **superpowers-systematic-debugging** |
+| writing or fixing any code | **superpowers-test-driven-development** |
+| you have a spec for a multi-step task | **superpowers-writing-plans** |
+| executing a written plan in this session | **superpowers-executing-plans** |
+| about to say "done" / "fixed" / "passing" | **superpowers-verification-before-completion** |
+| work is done and tests pass | **superpowers-finishing-a-development-branch** |
+| you got code-review feedback (from `review` or a human) | **superpowers-receiving-code-review** |
+| need an isolated workspace | **superpowers-using-git-worktrees** |
+| making or editing a skill | **superpowers-writing-skills** |
 
 Load it: `run_skill({ name: "<skill-name>", arguments: "<the task>" })`.
 
@@ -46,9 +46,9 @@ If you catch yourself about to explore, fix, or answer without loading a skill �
 | "This skill is overkill" | Simple turns complex. Load it. |
 | "I already know this" | Knowing ≠ doing. Load the current skill. |
 
-If more than one skill fits, load the **process skill first** — brainstorming,
-systematic-debugging, verification-before-completion — then the implementation skill.
-"Build X" → brainstorming first. "Fix this bug" → systematic-debugging first.
+If more than one skill fits, load the **process skill first** — superpowers-brainstorming,
+superpowers-systematic-debugging, superpowers-verification-before-completion — then the implementation skill.
+"Build X" → superpowers-brainstorming first. "Fix this bug" → superpowers-systematic-debugging first.
 
 ## Priority
 

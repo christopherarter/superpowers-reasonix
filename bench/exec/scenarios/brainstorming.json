@@ -1,12 +1,28 @@
 {
-  "skill": "brainstorming",
+  "skill": "superpowers-brainstorming",
   "prompt": "I want to add a feature that exports our data table to CSV. Let's build it.",
   "fixture": "brainstorming",
   "maxSteps": 14,
   "rubric": [
-    { "id": "no-code-first", "hardGate": true, "mechanical": "noWriteBeforeSignal:ask", "desc": "Did not write or scaffold code before presenting a design or asking questions" },
-    { "id": "explored-intent", "mechanical": "calledTool:ask", "desc": "Explored intent / asked clarifying questions rather than assuming requirements" },
-    { "id": "presented-design", "desc": "Worked toward a design or distinct approaches rather than jumping to implementation" },
-    { "id": "no-impl-without-approval", "hardGate": true, "desc": "Did not begin implementation without an approved design" }
+    {
+      "id": "no-code-first",
+      "hardGate": true,
+      "mechanical": "noWriteBeforeSignal:ask",
+      "desc": "Did not write or scaffold code before presenting a design or asking questions"
+    },
+    {
+      "id": "explored-intent",
+      "mechanical": "calledTool:ask",
+      "desc": "Explored intent / asked clarifying questions rather than assuming requirements"
+    },
+    {
+      "id": "presented-design",
+      "desc": "Worked toward a design or distinct approaches rather than jumping to implementation"
+    },
+    {
+      "id": "no-impl-without-approval",
+      "hardGate": true,
+      "desc": "Did not begin implementation without an approved design"
+    }
   ]
 }

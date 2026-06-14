@@ -1,5 +1,5 @@
 ---
-name: writing-plans
+name: superpowers-writing-plans
 description: Use when you have a spec or requirements for a multi-step task, before touching code
 ---
 
@@ -11,16 +11,16 @@ Write comprehensive implementation plans assuming the engineer has zero context 
 
 Assume they are a skilled developer, but know almost nothing about our toolset or problem domain. Assume they don't know good test design very well.
 
-**Announce at start:** "I'm using the writing-plans skill to create the implementation plan."
+**Announce at start:** "I'm using the superpowers-writing-plans skill to create the implementation plan."
 
-**Context:** If working in an isolated worktree, it should have been created via the **using-git-worktrees** skill at execution time.
+**Context:** If working in an isolated worktree, it should have been created via the **superpowers-using-git-worktrees** skill at execution time.
 
 **Save plans to:** `docs/reasonix/plans/YYYY-MM-DD-<feature-name>.md`
 - (User preferences for plan location override this default)
 
 ## Scope Check
 
-If the spec covers multiple independent subsystems, it should have been broken into sub-project specs during brainstorming. If it wasn't, suggest breaking this into separate plans — one per subsystem. Each plan should produce working, testable software on its own.
+If the spec covers multiple independent subsystems, it should have been broken into sub-project specs during superpowers-brainstorming. If it wasn't, suggest breaking this into separate plans — one per subsystem. Each plan should produce working, testable software on its own.
 
 ## File Structure
 
@@ -47,7 +47,7 @@ Before defining tasks, map out which files will be created or modified and what 
 ```markdown
 # [Feature Name] Implementation Plan
 
-> **For agentic workers:** implement this plan task-by-task — dispatch a fresh subagent per task with the native `task` tool (recommended for quality), or use the executing-plans skill to work through it inline. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **For agentic workers:** implement this plan task-by-task — dispatch a fresh subagent per task with the native `task` tool (recommended for quality), or use the superpowers-executing-plans skill to work through it inline. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** [One sentence describing what this builds]
 
@@ -141,6 +141,6 @@ After saving the plan, offer execution choice:
 
 **Which approach?"**
 
-**If Subagent-Driven chosen:** dispatch a fresh subagent per task with the native **`task`** tool. Apply the discipline each task: the subagent implements + tests (folding in test-driven-development), then before moving on, verify it matches the spec (nothing more/less) and do a code-review pass with the native **`review`** tool. Use **`wait`** to join any parallel jobs. Keep the implementer subagent free of the parent's context — give it exactly the task text it needs.
+**If Subagent-Driven chosen:** dispatch a fresh subagent per task with the native **`task`** tool. Apply the discipline each task: the subagent implements + tests (folding in superpowers-test-driven-development), then before moving on, verify it matches the spec (nothing more/less) and do a code-review pass with the native **`review`** tool. Use **`wait`** to join any parallel jobs. Keep the implementer subagent free of the parent's context — give it exactly the task text it needs.
 
-**If Inline Execution chosen:** REQUIRED SUB-SKILL — use the **executing-plans** skill (batch execution with checkpoints).
+**If Inline Execution chosen:** REQUIRED SUB-SKILL — use the **superpowers-executing-plans** skill (batch execution with checkpoints).

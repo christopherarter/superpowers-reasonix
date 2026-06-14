@@ -13,6 +13,6 @@ questions — scan the pinned skills index and load the relevant skill with
 skill applies, load it to check.
 
 Start with the **using-superpowers** skill; it routes to the rest. Process
-skills come first: **brainstorming** before building, **systematic-debugging**
-before fixing, **writing-plans** before multi-step work, and
-**verification-before-completion** before claiming anything is done.
+skills come first: **superpowers-brainstorming** before building, **superpowers-systematic-debugging**
+before fixing, **superpowers-writing-plans** before multi-step work, and
+**superpowers-verification-before-completion** before claiming anything is done.

@@ -14,20 +14,20 @@ These skills supplement Reasonix's native tools instead of competing with them. 
 
 | Skill | Use when |
 |---|---|
-| `brainstorming` | Before any build work: turn a rough idea into an approved design |
-| `writing-plans` | You have a spec/requirements for a multi-step task, before code |
-| `test-driven-development` | Implementing any feature or bugfix, before writing code |
-| `systematic-debugging` | Any bug, test failure, or unexpected behavior, before fixing |
-| `verification-before-completion` | Before claiming work is done/fixed/passing |
-| `executing-plans` | Execute a written plan inline in this session with checkpoints |
-| `using-git-worktrees` | Before feature work needing an isolated workspace |
-| `finishing-a-development-branch` | Work complete + tests pass → merge, PR, or clean up |
-| `receiving-code-review` | Acting on review feedback (from `review` or a human): verify before implementing |
-| `writing-skills` | Creating, editing, or testing Reasonix skills |
+| `superpowers-brainstorming` | Before any build work: turn a rough idea into an approved design |
+| `superpowers-writing-plans` | You have a spec/requirements for a multi-step task, before code |
+| `superpowers-test-driven-development` | Implementing any feature or bugfix, before writing code |
+| `superpowers-systematic-debugging` | Any bug, test failure, or unexpected behavior, before fixing |
+| `superpowers-verification-before-completion` | Before claiming work is done/fixed/passing |
+| `superpowers-executing-plans` | Execute a written plan inline in this session with checkpoints |
+| `superpowers-using-git-worktrees` | Before feature work needing an isolated workspace |
+| `superpowers-finishing-a-development-branch` | Work complete + tests pass → merge, PR, or clean up |
+| `superpowers-receiving-code-review` | Acting on review feedback (from `review` or a human): verify before implementing |
+| `superpowers-writing-skills` | Creating, editing, or testing Reasonix skills |
 
 ### Subagent work uses native tools, not skills
 
-Dispatching subagents, reviewing a diff, running work in parallel, and exploring the codebase use Reasonix's built-in `task` / `review` / `wait` / `explore` tools directly. There are no skills for them. The `writing-plans` skill's "subagent-driven" execution path folds the per-task discipline (implement → check spec → `review`) into instructions for the native `task` tool.
+Dispatching subagents, reviewing a diff, running work in parallel, and exploring the codebase use Reasonix's built-in `task` / `review` / `wait` / `explore` tools directly. There are no skills for them. The `superpowers-writing-plans` skill's "subagent-driven" execution path folds the per-task discipline (implement → check spec → `review`) into instructions for the native `task` tool.
 
 ## Install
 
@@ -71,17 +71,17 @@ Claude Code's superpowers force-injects a `using-superpowers` skill at session s
 ## How execution flows
 
 ```
-brainstorming → writing-plans → executing-plans (inline)
+superpowers-brainstorming → superpowers-writing-plans → superpowers-executing-plans (inline)
                                   └ or, for higher quality, dispatch per task with
                                     the native `task` tool:
                                         per task:
                                           task   → implement + test
                                           (verify it matches the spec)
                                           review → code-review the diff
-                                        finishing-a-development-branch
+                                        superpowers-finishing-a-development-branch
 ```
 
-`test-driven-development`, `systematic-debugging`, and `verification-before-completion` are invoked throughout. `using-git-worktrees` sets up isolation up front. Subagent dispatch, review, and parallel work use Reasonix's native `task` / `review` / `wait` tools, not skills.
+`superpowers-test-driven-development`, `superpowers-systematic-debugging`, and `superpowers-verification-before-completion` are invoked throughout. `superpowers-using-git-worktrees` sets up isolation up front. Subagent dispatch, review, and parallel work use Reasonix's native `task` / `review` / `wait` tools, not skills.
 
 ## Benchmarks
 
@@ -112,7 +112,7 @@ Reasonix resembles Claude Code but diverges in ways that break a naive copy. Wha
 | **Descriptions** | Long, prose | Trimmed to fit Reasonix's **130-char pinned-index line**, front-loaded with triggers only (never a workflow summary) |
 | **Always-on injection** | SessionStart hook | Pinned index + `AGENTS.md` pointer (Reasonix hooks don't inject SessionStart output) |
 | **Paths** | `docs/superpowers/...`, `~/.config/superpowers/worktrees` | `docs/reasonix/...`, `~/.config/reasonix/worktrees` |
-| **`writing-skills`** | Anthropic skill spec | Rewritten for Reasonix's frontmatter parser, index budget, references auto-fold, and subagent authoring rules |
+| **`superpowers-writing-skills`** | Anthropic skill spec | Rewritten for Reasonix's frontmatter parser, index budget, references auto-fold, and subagent authoring rules |
 
 The disciplines themselves (the Iron Laws, red-flag tables, rationalization counters, RED-GREEN-REFACTOR) are preserved, because that content is what makes superpowers work regardless of platform.
 

@@ -1,13 +1,31 @@
 {
-  "skill": "writing-plans",
+  "skill": "superpowers-writing-plans",
   "prompt": "Read the spec in docs/spec.md and write the implementation plan for it.",
   "fixture": "writing-plans",
   "maxSteps": 18,
   "rubric": [
-    { "id": "produced-plan", "mechanical": "artifactExists:**/*plan*.md", "desc": "Produced a plan document" },
-    { "id": "checkbox-tasks", "desc": "Plan breaks work into bite-sized tasks with checkbox steps" },
-    { "id": "no-placeholders", "hardGate": true, "mechanical": "grepArtifactAbsent:**/*plan*.md:\\bTBD\\b|\\bTODO\\b|fill in|add error handling", "desc": "Plan contains no placeholder text" },
-    { "id": "concrete", "desc": "Tasks name concrete file paths and show actual code/commands" },
-    { "id": "tdd-structured", "desc": "Implementation steps follow test-before-code ordering" }
+    {
+      "id": "produced-plan",
+      "mechanical": "artifactExists:**/*plan*.md",
+      "desc": "Produced a plan document"
+    },
+    {
+      "id": "checkbox-tasks",
+      "desc": "Plan breaks work into bite-sized tasks with checkbox steps"
+    },
+    {
+      "id": "no-placeholders",
+      "hardGate": true,
+      "mechanical": "grepArtifactAbsent:**/*plan*.md:\\bTBD\\b|\\bTODO\\b|fill in|add error handling",
+      "desc": "Plan contains no placeholder text"
+    },
+    {
+      "id": "concrete",
+      "desc": "Tasks name concrete file paths and show actual code/commands"
+    },
+    {
+      "id": "tdd-structured",
+      "desc": "Implementation steps follow test-before-code ordering"
+    }
   ]
 }

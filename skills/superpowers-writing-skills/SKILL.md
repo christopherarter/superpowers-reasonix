@@ -1,5 +1,5 @@
 ---
-name: writing-skills
+name: superpowers-writing-skills
 description: Use when creating, editing, or testing Reasonix skills, before deploying them
 ---
 
@@ -13,7 +13,7 @@ You write test cases (pressure scenarios with subagents), watch them fail (basel
 
 **Core principle:** If you didn't watch an agent fail without the skill, you don't know if the skill teaches the right thing.
 
-**REQUIRED BACKGROUND:** Understand the **test-driven-development** skill first — it defines RED-GREEN-REFACTOR. This skill adapts it to documentation.
+**REQUIRED BACKGROUND:** Understand the **superpowers-test-driven-development** skill first — it defines RED-GREEN-REFACTOR. This skill adapts it to documentation.
 
 **Platform spec:** For the full Reasonix skill/hook/MCP contract, consult the `extending-reasonix` skill (or its reference files). This skill is the *authoring discipline*; that one is the *exhaustive spec*.
 
@@ -102,10 +102,10 @@ description: Use when implementing any feature or bugfix, before writing impleme
 ### Keyword coverage & naming
 - Use words the model would search for: error messages ("race condition", "ENOTEMPTY"), symptoms ("flaky", "hanging"), tools (command/library names).
 - Write the description in the third person (it's injected into the system prompt).
-- Name by what you DO or the core insight, verb-first / gerund: `condition-based-waiting` > `async-test-helpers`; `writing-plans` > `plan-authoring`.
+- Name by what you DO or the core insight, verb-first / gerund: `condition-based-waiting` > `async-test-helpers`; `superpowers-writing-plans` > `plan-authoring`.
 
 ### Cross-referencing other skills
-Reference by bare name with an explicit marker: `**REQUIRED SUB-SKILL:** use the test-driven-development skill`. Don't `read_file` another SKILL.md and don't `@`-link it — use `run_skill`/`read_skill` so scope resolution and auto-folding work.
+Reference by bare name with an explicit marker: `**REQUIRED SUB-SKILL:** use the superpowers-test-driven-development skill`. Don't `read_file` another SKILL.md and don't `@`-link it — use `run_skill`/`read_skill` so scope resolution and auto-folding work.
 
 ## The Iron Law (Same as TDD)
 
