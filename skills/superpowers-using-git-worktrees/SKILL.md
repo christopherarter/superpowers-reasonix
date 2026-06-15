@@ -1,6 +1,6 @@
 ---
 name: superpowers-using-git-worktrees
-description: Before feature work needing an isolated workspace, or before executing an implementation plan
+description: Feature work needing an isolated workspace, or executing a plan? Load first.
 ---
 
 # Using Git Worktrees

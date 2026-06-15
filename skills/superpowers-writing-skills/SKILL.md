@@ -1,6 +1,6 @@
 ---
 name: superpowers-writing-skills
-description: Use when creating, editing, or testing Reasonix skills, before deploying them
+description: Creating, editing, or testing a Reasonix skill? Load first, before you deploy it.
 ---
 
 # Writing Skills (for Reasonix)
@@ -84,24 +84,26 @@ The body is the child's **system prompt**, not a message to the parent. Write it
 
 **Critical:** future agents must FIND your skill via the description.
 
-### Description = WHEN to use, NOT what it does
+### Description = WHEN to use, not the step-by-step workflow
 
-The single most important rule. The description should ONLY describe triggering conditions. Do NOT summarize the workflow.
+State the **triggering condition**. You may name the **single core action**, but never enumerate the skill's multi-step procedure — the description's only job is to get the skill discovered and loaded.
 
-**Why:** testing shows that when a description summarizes the workflow, the model follows the *description* instead of reading the skill body. A description saying "code review between tasks" caused a single review even though the skill specified TWO. When changed to just "Use when executing implementation plans with independent tasks," the model read the body and followed both steps.
+**Why the line is there:** if the description spells out the steps, the model follows the *description* and skips the body. A description saying "review between tasks" produced ONE review when the skill specified two; trimmed to the trigger, the model read the body and did both.
+
+**This repo's house style — validated, not dogma:** on the floor model (`deepseek-flash`) a flat "Use when X" discovers less reliably than a forceful imperative that names the situation as a question plus the one key move. So every description here reads `<trigger>? <STOP / Load first>[ — <one core action>]`, and the invocation benchmark (`bench/`) is the proof it fires the right skill (12/12). Match that voice across all skills; don't mix in bare "Use when" lines.
 
 ```yaml
-# ❌ BAD: summarizes workflow — the model may follow this instead of the skill
-description: Use when executing plans - dispatches a subagent per task with review between tasks
-# ❌ BAD: too much process detail
-description: Use for TDD - write test first, watch it fail, write minimal code, refactor
-# ✅ GOOD: triggering conditions only
-description: Use when implementing any feature or bugfix, before writing implementation code
+# ❌ BAD: enumerates the workflow — the model follows this instead of the body
+description: Dispatch a subagent per task, review between tasks, then merge
+# ❌ BAD: flat trigger — weaker discovery on the floor model
+description: Use when implementing a feature or bugfix
+# ✅ GOOD: forceful trigger + the single core action (this repo's voice)
+description: Writing or fixing any code? Load first — write the failing test before the code.
 ```
 
 ### Keyword coverage & naming
 - Use words the model would search for: error messages ("race condition", "ENOTEMPTY"), symptoms ("flaky", "hanging"), tools (command/library names).
-- Write the description in the third person (it's injected into the system prompt).
+- Voice: a direct imperative/question to the model ("Writing code? Load first…"), not third-person prose — it's injected into the system prompt as an instruction to act on.
 - Name by what you DO or the core insight, verb-first / gerund: `condition-based-waiting` > `async-test-helpers`; `superpowers-writing-plans` > `plan-authoring`.
 
 ### Cross-referencing other skills
@@ -142,7 +144,8 @@ Use a small inline `dot` flowchart ONLY for non-obvious decision points, loops w
 - **❌ Multi-language dilution** — one excellent example beats five mediocre ones
 - **❌ Code inside flowcharts** — can't copy-paste
 - **❌ Generic labels** (`step1`, `helper2`) — labels should carry meaning
-- **❌ Summarizing the workflow in `description`** — the #1 discovery bug
+- **❌ Enumerating the multi-step workflow in `description`** — the #1 discovery bug (a single core action is fine; the step sequence is not)
+- **❌ Bloated bodies for a weak target model** — on the floor model every extra paragraph competes with the rules; cut narrative and examples, fold discipline into terse tables, and let the benchmark (not obra fidelity) decide what stays
 
 ## STOP: Before Moving to the Next Skill
 
@@ -154,7 +157,7 @@ Use `todo_write` for each item.
 
 **RED:** [ ] write pressure scenarios (3+ combined pressures for discipline skills) · [ ] run WITHOUT the skill, record baseline verbatim · [ ] identify rationalization patterns
 
-**GREEN:** [ ] valid name (regex) · [ ] frontmatter fence closed; `name` + `description` present · [ ] description is triggering-conditions-only, front-loaded, fits ~130-char index line · [ ] third person · [ ] keywords for search · [ ] addresses the baseline failures · [ ] one excellent example · [ ] correct snake_case tool names · [ ] run WITH the skill, verify compliance
+**GREEN:** [ ] valid name (regex) · [ ] frontmatter fence closed; `name` + `description` present · [ ] description is trigger-first (single core action OK, never the full workflow), fits the ~130-char index line · [ ] imperative house voice · [ ] keywords for search · [ ] addresses the baseline failures · [ ] one excellent example · [ ] correct snake_case tool names · [ ] run WITH the skill, verify compliance
 
 **REFACTOR:** [ ] add counters for new rationalizations · [ ] rationalization table · [ ] red-flags list · [ ] re-test until bulletproof
 

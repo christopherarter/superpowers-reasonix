@@ -1,6 +1,6 @@
 ---
 name: superpowers-writing-plans
-description: Use when you have a spec or requirements for a multi-step task, before touching code
+description: Got a spec or requirements for a multi-step task? Load first, before touching code.
 ---
 
 # Writing Plans

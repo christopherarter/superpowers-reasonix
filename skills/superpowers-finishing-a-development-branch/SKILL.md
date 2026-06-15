@@ -1,6 +1,6 @@
 ---
 name: superpowers-finishing-a-development-branch
-description: Use when work is complete and tests pass — merge, PR, or clean up the branch
+description: Branch finished, tests green? Load first to merge, PR, or clean up.
 ---
 
 # Finishing a Development Branch
