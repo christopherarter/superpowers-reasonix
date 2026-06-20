@@ -23,3 +23,12 @@ jobs:
       # Unit tests for the benchmark harness itself (also no API key).
       - name: Harness unit tests
         run: npm test
+
+  installer:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: shellcheck
+        run: shellcheck install.sh scripts/install-smoke.sh
+      - name: install smoke test
+        run: bash scripts/install-smoke.sh
