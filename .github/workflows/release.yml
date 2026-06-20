@@ -1,0 +1,24 @@
+name: release
+on:
+  push:
+    tags: ["v*"]
+permissions:
+  contents: write
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build release tarball
+        run: |
+          set -euo pipefail
+          stage="$(mktemp -d)"
+          cp -R skills "$stage/skills"
+          cp AGENTS.md AGENTS.md.example reasonix.toml.example LICENSE "$stage/"
+          echo "${GITHUB_REF_NAME}" > "$stage/VERSION"
+          tar -czf superpowers-reasonix-skills.tar.gz -C "$stage" .
+      - name: Create release
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+          files: superpowers-reasonix-skills.tar.gz
