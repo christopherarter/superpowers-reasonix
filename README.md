@@ -86,6 +86,12 @@ These skills supplement Reasonix's native tools rather than compete with them. R
 
 Only read-only work parallelizes cleanly, so fan out `explore`/read tasks and integrate sequentially. Rather than ship a separate subagent-driven skill, `writing-plans` folds the per-task discipline (implement, check the spec, then `review`) into instructions for the native `task` tool.
 
+## Staying current
+
+This is a port, so it drifts from two upstreams: `obra/superpowers` (content) and DeepSeek-Reasonix `main-v2` (the harness). `UPSTREAM.json` pins the commit last synced from each.
+
+Run `/superpowers-sync-upstream` to check both, re-port what changed through the Adaptations rules, and re-pin once `bench/` passes. A weekly GitHub Action (`.github/workflows/upstream-drift.yml`) does the detection on its own: when either upstream advances past its pin, it opens one `upstream-drift` issue listing the changed skills or contract files.
+
 ## Adaptations from Claude Code superpowers
 
 Reasonix resembles Claude Code but diverges in ways that break a naive copy. The disciplines themselves are preserved (the Iron Laws, red-flag tables, rationalization counters, RED-GREEN-REFACTOR); only the mechanics are rewritten.
