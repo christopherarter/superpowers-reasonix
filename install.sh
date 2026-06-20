@@ -49,7 +49,10 @@ stage="$tmp/stage"
 mkdir -p "$stage"
 tar -xzf "$tarball" -C "$stage"
 [ -d "$stage/skills" ] || { echo "error: tarball missing skills/ — corrupt download?" >&2; exit 1; }
-[ -f "$stage/VERSION" ] && [ -f "$stage/AGENTS.md" ] || { echo "error: tarball missing VERSION or AGENTS.md — corrupt download?" >&2; exit 1; }
+if [ ! -f "$stage/VERSION" ] || [ ! -f "$stage/AGENTS.md" ]; then
+  echo "error: tarball missing VERSION or AGENTS.md — corrupt download?" >&2
+  exit 1
+fi
 
 # Remove a previous managed install (only the dirs WE recorded), if any.
 # NOTE: the installer owns every superpowers-* dir it records in the manifest; a re-run removes them. Don't keep your own dir named superpowers-* in this root.
