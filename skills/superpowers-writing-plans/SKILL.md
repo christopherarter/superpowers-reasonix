@@ -141,6 +141,12 @@ After saving, offer execution choice:
 
 **Which approach?"**
 
-**If Subagent-Driven chosen:** dispatch a fresh subagent per task with the native **`task`** tool. Discipline each task: subagent implements + tests (folding in superpowers-test-driven-development), then before moving on, verify it matches the spec (nothing more/less) and code-review with the native **`review`** tool. Use **`wait`** to join parallel jobs. Keep the implementer free of parent context — give it exactly the task text it needs.
+**If Subagent-Driven chosen — you are the ORCHESTRATOR, not the implementer.** Dispatch a fresh subagent per task with the native **`task`** tool, each with a step budget big enough to implement + test + commit (a too-small budget makes the subagent stop early and tempts you to finish its work). **You do NOT call `write_file`/`edit_file`/`multi_edit`, run the implementation, or commit code in this session — every code change happens INSIDE a dispatched subagent.** Per task: the subagent implements + tests + commits (folding in superpowers-test-driven-development); then before moving on, verify it matches the spec (nothing more/less) and code-review the result with the native **`review`** tool. Use **`wait`** to join parallel jobs. Keep the implementer free of parent context — give it exactly the task text it needs.
+
+**Two traps that put edits back in this session — both forbidden:**
+- Dispatching a `task` and *then* editing the code yourself anyway.
+- A subagent stops early, leaves the task incomplete, or gets it wrong — and you "just finish it" / "quickly fix it" / "clean it up" yourself. **No.** Dispatch ANOTHER `task` to finish or redo it (give the new subagent a generous step budget). Completing a subagent's work in-session is still doing it in-session.
+
+Catch yourself about to touch a source file for ANY reason — implementing, finishing, fixing, reformatting — STOP and dispatch a `task` instead.
 
 **If Inline Execution chosen:** REQUIRED SUB-SKILL — use the **superpowers-executing-plans** skill (batch execution with checkpoints).
