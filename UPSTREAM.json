@@ -1,0 +1,33 @@
+{
+  "obra": {
+    "repo": "https://github.com/obra/superpowers",
+    "skillsPath": "skills",
+    "lastSyncedCommit": "896224c4b1879920ab573417e68fd51d2ccc9072",
+    "lastSyncedDate": "2026-06-19"
+  },
+  "reasonix": {
+    "repo": "https://github.com/esengine/DeepSeek-Reasonix",
+    "branch": "main-v2",
+    "contractPaths": ["internal/tool", "internal/hook", "internal/skill", "internal/frontmatter", "internal/command"],
+    "lastVerifiedCommit": "7032f39336f4ae5f216e1fcb3368e5f679723490",
+    "lastVerifiedDate": "2026-06-19"
+  },
+  "skillMap": {
+    "superpowers-brainstorming": "skills/brainstorming/SKILL.md",
+    "superpowers-writing-plans": "skills/writing-plans/SKILL.md",
+    "superpowers-test-driven-development": "skills/test-driven-development/SKILL.md",
+    "superpowers-systematic-debugging": "skills/systematic-debugging/SKILL.md",
+    "superpowers-verification-before-completion": "skills/verification-before-completion/SKILL.md",
+    "superpowers-executing-plans": "skills/executing-plans/SKILL.md",
+    "superpowers-using-git-worktrees": "skills/using-git-worktrees/SKILL.md",
+    "superpowers-finishing-a-development-branch": "skills/finishing-a-development-branch/SKILL.md",
+    "superpowers-receiving-code-review": "skills/receiving-code-review/SKILL.md",
+    "superpowers-writing-skills": "skills/writing-skills/SKILL.md"
+  },
+  "retired": {
+    "subagent-driven-development": "Native task covers per-task subagent dispatch; benchmarking showed the model prefers it.",
+    "requesting-code-review": "Native review covers code-review of a diff.",
+    "dispatching-parallel-agents": "Native task + wait cover parallel dispatch; only read-only work parallelizes cleanly.",
+    "using-superpowers": "Always-on discipline moved to AGENTS.md plus the pinned index; a skill cannot establish discipline meant to apply before any skill is invoked."
+  }
+}
