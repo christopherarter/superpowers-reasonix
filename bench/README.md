@@ -70,3 +70,14 @@ Append one line to `cases.jsonl`:
 Negative cases use `"expect":[]` plus `"mustNotInvoke":["skill","..."]`. The
 `cases.test.mjs` guard fails if any discoverable skill has no positive case or if
 an `expect` name doesn't match a real skill.
+
+## Behavioural repros (`repro/`)
+
+Some reported issues are about *what a skill makes the model do*, not whether it
+loads — and are **intermittent**, so a single-shot gate would flake. Those live
+under `bench/repro/` as multi-trial probes that report a rate.
+
+- `repro/subagent-handoff.mjs` — after `superpowers-writing-plans` offers
+  "1) Subagent-Driven / 2) Inline" and the user picks 1, does flash dispatch a
+  native `task` per task, or edit the source in-session? Runs N trials in a fully
+  isolated fixture and reports the inline-vs-dispatch rate. See `repro/README.md`.

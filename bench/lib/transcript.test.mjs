@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { extractSkillInvocations } from './transcript.mjs';
+import { extractSkillInvocations, extractToolCalls, DISPATCH_TOOLS, EDIT_TOOLS } from './transcript.mjs';
 
 const jsonl = [
   JSON.stringify({ role: 'system', content: 'sys' }),
@@ -54,4 +54,41 @@ test('counts a skill invoked via the slash_command path', () => {
     { id: 'c1', name: 'slash_command', arguments: JSON.stringify({ command: 'writing-skills', arguments: 'Explain the SKILL.md structure' }) },
   ] });
   assert.deepEqual(extractSkillInvocations(t), ['writing-skills']);
+});
+
+test('extractToolCalls returns every tool call in order with parsed args', () => {
+  const t = [
+    JSON.stringify({ role: 'user', content: 'go' }),
+    JSON.stringify({ role: 'assistant', tool_calls: [
+      { id: 'a', name: 'task', arguments: '{"description":"Task 1"}' },
+      { id: 'b', name: 'write_file', arguments: '{"path":"src/x.js"}' },
+    ] }),
+    JSON.stringify({ role: 'assistant', tool_calls: [
+      { function: { name: 'bash', arguments: '{"command":"git commit -m x"}' } },
+    ] }),
+  ].join('\n');
+  const calls = extractToolCalls(t);
+  assert.deepEqual(calls.map((c) => c.name), ['task', 'write_file', 'bash']);
+  assert.equal(calls[0].args.description, 'Task 1');
+  assert.equal(calls[1].args.path, 'src/x.js');
+  assert.equal(calls[2].args.command, 'git commit -m x');
+});
+
+test('extractToolCalls tolerates malformed args (args=null, raw preserved)', () => {
+  const t = JSON.stringify({ role: 'assistant', tool_calls: [
+    { id: 'a', name: 'edit_file', arguments: '{bad json' },
+  ] });
+  const calls = extractToolCalls(t);
+  assert.equal(calls.length, 1);
+  assert.equal(calls[0].args, null);
+  assert.equal(calls[0].rawArgs, '{bad json');
+});
+
+test('dispatch vs edit tool sets classify the subagent-handoff bug', () => {
+  // The whole point of the subagent-handoff probe: `task` = dispatched to a
+  // child; write_file/edit_file/multi_edit = edited in THIS session.
+  assert.ok(DISPATCH_TOOLS.has('task'));
+  for (const e of ['write_file', 'edit_file', 'multi_edit']) assert.ok(EDIT_TOOLS.has(e));
+  assert.ok(!EDIT_TOOLS.has('task'));
+  assert.ok(!DISPATCH_TOOLS.has('write_file'));
 });
