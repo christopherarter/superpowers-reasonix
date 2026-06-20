@@ -6,7 +6,7 @@ A port of [obra/superpowers](https://github.com/obra/superpowers) for Reasonix (
 
 ## The skills
 
-Ten skills under `skills/`, covering a project from idea to merge:
+Eleven skills under `skills/`, covering a project from idea to merge:
 
 | Skill | Use when |
 |---|---|
@@ -20,10 +20,26 @@ Ten skills under `skills/`, covering a project from idea to merge:
 | `superpowers-finishing-a-development-branch` | Work done + tests pass, ready to merge, PR, or clean up |
 | `superpowers-receiving-code-review` | Acting on review feedback, before implementing it |
 | `superpowers-writing-skills` | Creating, editing, or testing Reasonix skills |
+| `superpowers-sync-upstream` | Checking obra/superpowers or the Reasonix harness for updates to pull into this port |
 
 Subagent dispatch, code review, parallel work, and codebase exploration aren't skills here. Reasonix ships those as native tools (`task`, `review`, `wait`, `explore`), and the skills use them directly. [Why?](#design-notes)
 
 ## Install
+
+**One-liner (recommended).** Downloads the latest release and installs the skills into your global Reasonix skills root, where they auto-load in every session:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/christopherarter/superpowers-reasonix/main/install.sh | bash
+```
+
+Re-run anytime to upgrade. Pin a release with `--version v1.0.0`. Skills land in `~/.reasonix/skills/` (override with `REASONIX_SKILLS_DIR`). For the always-on discipline, copy the bundled `AGENTS.md` into each project:
+
+```bash
+cp ~/.reasonix/skills/.superpowers-reasonix/AGENTS.md <your-project>/AGENTS.md
+```
+
+<details>
+<summary>Manual install (for development, or to pin a checkout)</summary>
 
 Skills load from several roots. Pick the one that fits.
 
@@ -48,6 +64,8 @@ ln -s /absolute/path/to/superpowers-reasonix/skills/* ~/.reasonix/skills/
 Then copy [`AGENTS.md`](./AGENTS.md) (or the trimmed [`AGENTS.md.example`](./AGENTS.md.example)) into your project. It carries the always-on "load a skill before you act" discipline. [Why?](#always-on-discipline)
 
 **Verify:** in a session, `/skill paths` confirms the root is seen and `/skills` lists what was discovered. Skills with a `description` also appear in the pinned skills index in the system prompt.
+
+</details>
 
 ## How a session uses them
 
@@ -120,4 +138,4 @@ MIT. See [`LICENSE`](./LICENSE).
 
 Original concept and content: **Jesse Vincent** ([obra/superpowers](https://github.com/obra/superpowers)), MIT, `Copyright (c) 2025 Jesse Vincent`, preserved in [`LICENSE`](./LICENSE). This is a community port for the Reasonix platform (`Copyright (c) 2026 Chris Arter`).
 
-**Versioning:** there is no Reasonix skill marketplace to resolve a version, and install just points `[skills] paths` at a checkout, so the git ref *is* the version. This repo isn't versioned with semver; pin a tag or commit if you need reproducibility. `bench/BASELINE.json` is meaningful relative to the commit that captured it.
+**Versioning:** released as semver git tags (`vX.Y.Z`) on [Releases](https://github.com/christopherarter/superpowers-reasonix/releases); the installer pulls the latest. The **skill set** is the versioned surface — retiring/renaming a skill is a minor or major bump, adding one a minor, body/wording refinements a patch. `bench/BASELINE.json` is meaningful relative to the commit that captured it.
