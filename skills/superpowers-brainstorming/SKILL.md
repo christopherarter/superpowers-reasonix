@@ -1,191 +1,66 @@
 ---
 name: superpowers-brainstorming
-description: Building a feature or starting from an idea? STOP. Load first for an approved design before code.
+description: Starting a feature, project, or rough idea? Load first to learn what the user wants.
 ---
 
 # Brainstorming Ideas Into Designs
 
-Turn ideas into designs and specs through collaborative dialogue. Classify how much process the request needs, then work through your path: understand context, refine the idea, present a design, get user approval.
+You can build quickly, but your first guess about what the user wants may be thin. Find out what matters before you make the decisions they did not mention. User instructions and approvals already given in this conversation govern; do not ask them to approve the same work twice.
 
-<HARD-GATE>
-Do NOT invoke any implementation skill, write any code, scaffold any project, or take any implementation action until you have told the user what you intend and they have approved it. This applies to EVERY task on EVERY path below — the ceremony scales with the task; the approval gate never does.
-</HARD-GATE>
+## First: What Do You Know?
 
-## Three Paths
+- **Everything that matters is in the request** (for example, an exact color or an existing function to change). This is a quick, clear task. Do it through the normal workflow and report what changed.
+- **A nontrivial product choice is missing.** Start a conversation. A broad request is not a license to choose the product for them.
 
-Before your first question, classify the request and say the classification out loud — "this looks bounded, so I'll present a short design here rather than write a spec" — so the user can override it:
+## First Message for an Open Idea
 
-- **Spike** — a feasibility question ("can we...", "is it possible...", "quick and dirty is fine") whose output is an answer, not code you keep. Present the question and what you'll try in 2-3 sentences, get a nod, then find out as cheaply as correctness allows. No design doc, no spec file. Report findings as a recommendation; anything you built stays labeled throwaway.
-- **Bounded** — a well-scoped change to code that already exists in this repo: a new flag, a small endpoint, a one-file fix. Understanding the kind of app is not enough — bounded means the flow you are changing is already here to read. If there is no existing flow to change, the task is not bounded. Ask the clarifying questions that matter, present a short design IN CHAT (a few sentences to a few short paragraphs), and STOP. Implementation starts only after the user says yes to that design — a bounded task's approval is as hard a gate as an architectural one. No spec file, no implementation plan document.
-- **Architectural** — new projects, new subsystems, changes that restructure how components fit together or alter interfaces others depend on. Follow the full process below: questions, approaches, sectioned design, written spec, then the **superpowers-writing-plans** skill.
+Tell the user in one line that they may ask you to start with reasonable assumptions if they prefer. Then ask **one open question** about a concrete moment or desired result. That is the entire first message. If they opt out of questions, state any significant platform, language, or medium choice you make, and continue through the normal workflow.
 
-When in doubt between two paths, take the heavier one. The ratchet is one-way: hidden complexity discovered mid-task upgrades the path — stop, say so, and step up. Nothing downgrades mid-task.
+Each later message ends with one question, without a list of suggested answers unless the user is stuck. Use their words. Ask for a concrete example, the last time the need arose, what success would look like, or what would make the result wrong. When they ask you to choose, propose something specific and label your assumptions.
 
-## Anti-Pattern: "Too Simple To Need Approval"
+### Ground to cover as needed
 
-Every path ends with the user approving your intent before implementation. A todo list, a single-function utility, a config change — the design may be two sentences in chat, but you MUST present it and get approval. "Simple" tasks are where unexamined assumptions cause the most wasted work. What scales with simplicity is the artifact, never the approval.
+- Who uses it, what they do, and why now.
+- Goals, non-goals, and outcomes that would count as failure.
+- What exists already, what they tried, and prior art they liked or disliked.
+- Which choices about platform, language, tools, and resources they want to make, and which they leave to you.
+
+Use project files and repository history to ground your questions and proposals. Offer a visual sketch or prototype when seeing a page, layout, flow, or set of alternatives would help the user decide. In a terminal-only Reasonix session, use a concise text sketch; use a native visual tool only when it is actually available.
+
+Privately consider several approaches before presenting one. Show alternatives and trade-offs when they help the user decide. A short, disposable spike can answer a feasibility question; label it disposable, keep its tests minimal, and bring the result back into the conversation. Keeping spike code is a new implementation choice.
+
+## Play It Back
+
+As each part becomes clear, describe your understanding in a short chunk and ask what is wrong or missing. Separate what the user said from your assumptions. For a visual result, pair the description with a sketch when helpful. Continue until the user can recognize the intended outcome and the remaining decisions are small enough for the implementer to make.
+
+## Size the Work
+
+| Size | Description | Next step |
+|---|---|---|
+| Quick, clear task | The request itself is enough | Do it |
+| Small change | A concise description in chat | Build through the normal development workflow after it is accepted |
+| Project | Written design document | Use **superpowers-writing-plans** after the document is accepted |
+
+If the work grows, say so and step up a size. If the request contains several independent projects, agree on an order and develop each design separately.
+
+## Written Design for a Project
+
+Write `docs/reasonix/specs/YYYY-MM-DD-<topic>-design.md` unless the user chooses another location. Cover intent and why, goals and non-goals, constraints, the implementation choices the user actually made, and decisions left to the builder. Commit the document.
+
+Ask a fresh Reasonix `task` subagent to read the design as a builder who has no conversation history, using `builder-check-prompt.md`. Resolve questions answerable from the conversation or repo in the document. Mark minor decisions you make as your own. Ask the user only about choices that change the result. If no subagent tool is available, perform that check yourself and say so.
+
+Present the document and the decisions you made for review. Once accepted, load **superpowers-writing-plans**. Do not start product implementation from an unapproved project design unless the user already authorized that scope or opted out of design questions.
+
+## Hard Gate for Unsettled Designs
+
+For an open idea, product code, scaffolding, dependency installation, and implementation skills wait until the user accepts the description of what will be built. A small change needs only an in-chat description; a project needs its design document. Reading, probing, and reversible investigation may proceed. A user who asks you to start with assumptions has opted out of this gate; a user who already approved the scope has satisfied it.
 
 ## Red Flags
 
 | Thought | Reality |
-|---------|---------|
-| "This is too simple to need a design" | Simple means a short design, not no design. Two sentences in chat, then approval. |
-| "I'll call it bounded and skip the spec" | Reaching for a label to skip work IS the doubt — take the heavier path. |
-| "It's bounded and the design is obvious — I'll start while they read it" | The gate is the approval, not the design's length. Present, then stop until you hear yes. |
-| "I understand this kind of app, so it's bounded" | Bounded measures the repo, not your familiarity. A new project has no existing flow — it is architectural. |
-| "The spike works, so I'll keep the code" | A spike's output is an answer. Keeping the code is a new request — classify it. |
-| "It grew, but I'm almost done — no need to re-classify" | Hidden complexity upgrades the path mid-task. Stop and say so. |
-| "They approved the spike, so the follow-up change is approved too" | Each task gets its own classification and its own approval. |
-
-## Checklist
-
-Classify first, announce the path, then create a `todo_write` entry for each item on your path and complete them in order.
-
-**Spike:**
-1. **Explore project context** — enough to frame the probe
-2. **Present question + probe plan** — 2-3 sentences
-3. **Get approval** — a nod is enough
-4. **Investigate** — as cheaply as correctness allows
-5. **Report findings** — a recommendation; label anything built as throwaway
-
-**Bounded:**
-1. **Explore project context** — check files, docs, recent commits
-2. **Ask clarifying questions** — one at a time, the ones that matter
-3. **Present short design in chat** — approach, files touched, testing
-4. **Get approval** — STOP and wait for an explicit yes; presenting the design and starting in the same breath is skipping the gate
-5. **Implement** — proceed with the normal development workflow (**superpowers-test-driven-development** applies); no plan document
-
-**Architectural:**
-1. **Explore project context** — check files, docs, recent commits
-2. **Ask clarifying questions** — one at a time, understand purpose/constraints/success criteria
-3. **Propose 2-3 approaches** — trade-offs and your recommendation
-4. **Present design** — sections scaled to complexity; get user approval after each section
-5. **Write design doc** — save to `docs/reasonix/specs/YYYY-MM-DD-<topic>-design.md` and commit
-6. **Spec self-review** — inline check for placeholders, contradictions, ambiguity, scope
-7. **User reviews written spec** — ask user to review the spec file before proceeding
-8. **Transition to implementation** — use **superpowers-writing-plans** skill to create the implementation plan
-
-## Process Flow
-
-```dot
-digraph superpowers-brainstorming {
-    "Classify: spike / bounded / architectural" [shape=diamond];
-    "Present question + probe (2-3 sentences)" [shape=box];
-    "Ask clarifying questions (bounded)" [shape=box];
-    "Present short design in chat" [shape=box];
-    "User approves?" [shape=diamond];
-    "Investigate; report recommendation" [shape=doublecircle];
-    "Implement via normal workflow (no plan doc)" [shape=doublecircle];
-    "Explore project context" [shape=box];
-    "Ask clarifying questions" [shape=box];
-    "Propose 2-3 approaches" [shape=box];
-    "Present design sections" [shape=box];
-    "User approves design?" [shape=diamond];
-    "Write design doc" [shape=box];
-    "Spec self-review (fix inline)" [shape=box];
-    "User reviews spec?" [shape=diamond];
-    "Use superpowers-writing-plans skill" [shape=doublecircle];
-    "Hidden complexity? Upgrade path" [shape=box];
-
-    "Classify: spike / bounded / architectural" -> "Present question + probe (2-3 sentences)" [label="spike"];
-    "Classify: spike / bounded / architectural" -> "Ask clarifying questions (bounded)" [label="bounded"];
-    "Classify: spike / bounded / architectural" -> "Explore project context" [label="architectural"];
-    "Present question + probe (2-3 sentences)" -> "User approves?";
-    "Ask clarifying questions (bounded)" -> "Present short design in chat";
-    "Present short design in chat" -> "User approves?";
-    "User approves?" -> "Investigate; report recommendation" [label="spike: yes"];
-    "User approves?" -> "Implement via normal workflow (no plan doc)" [label="bounded: yes"];
-    "Hidden complexity? Upgrade path" -> "Classify: spike / bounded / architectural";
-    "Explore project context" -> "Ask clarifying questions";
-    "Ask clarifying questions" -> "Propose 2-3 approaches";
-    "Propose 2-3 approaches" -> "Present design sections";
-    "Present design sections" -> "User approves design?";
-    "User approves design?" -> "Present design sections" [label="no, revise"];
-    "User approves design?" -> "Write design doc" [label="yes"];
-    "Write design doc" -> "Spec self-review (fix inline)";
-    "Spec self-review (fix inline)" -> "User reviews spec?";
-    "User reviews spec?" -> "Write design doc" [label="changes requested"];
-    "User reviews spec?" -> "Use superpowers-writing-plans skill" [label="approved"];
-}
-```
-
-**Terminal states are path-bound.** Architectural: the ONLY skill you invoke after brainstorming is **superpowers-writing-plans** — never any other implementation skill. Bounded: after approval, implementation proceeds directly through the normal development workflow; no plan document. Spike: the terminal state is a reported recommendation.
-
-## The Process
-
-The subsections below serve the bounded and architectural paths (a spike stops at "present the probe, get a nod"). Sections from **Exploring approaches** onward are architectural-path depth — for bounded work, context plus a few questions plus a short in-chat design is the whole process.
-
-**Understanding the idea:**
-
-- Check current project state first (files, docs, recent commits)
-- Assess scope before detailed questions. Multiple independent subsystems (e.g., "platform with chat, file storage, billing, analytics")? Flag immediately. Don't refine a project that needs decomposing first.
-- Too large for one spec? Decompose into sub-projects: independent pieces, how they relate, build order. Brainstorm the first through the normal flow. Each gets its own spec → plan → implementation cycle.
-- Appropriately-scoped: ask one question at a time
-- Prefer multiple-choice — use the `ask` tool. Open-ended fine too.
-- One question per message. More exploration needed? Split into more questions.
-- Focus on: purpose, constraints, success criteria
-
-**Exploring approaches:**
-
-- Propose 2-3 approaches with trade-offs
-- Present conversationally. Lead with recommended option; explain why.
-
-**Presenting the design:**
-
-- Once you know what you're building, present it
-- Scale each section to complexity: a few sentences if straightforward, up to 200-300 words if nuanced
-- Ask after each section whether it looks right
-- Cover: architecture, components, data flow, error handling, testing
-- Sketch anything visual or structural — ASCII layout, tree, or small fenced diagram. Terminal is the medium; make options legible.
-- Go back and clarify when something doesn't make sense
-
-**Design for isolation and clarity:**
-
-- Break into smaller units: one clear purpose, well-defined interfaces, tested independently
-- Per unit: what does it do, how do you use it, what does it depend on?
-- Understand a unit without reading internals? Change internals without breaking consumers? If not, boundaries need work.
-- Smaller, well-bounded units are easier to reason about. A file growing large signals it's doing too much.
-
-**Working in existing codebases:**
-
-- Explore current structure before proposing changes. Follow existing patterns.
-- Existing problems affecting the work (file too large, unclear boundaries, tangled responsibilities)? Include targeted improvements — the way a good developer improves code they work in.
-- Don't propose unrelated refactoring. Stay focused on the current goal.
-
-## After the Design (architectural path)
-
-**Documentation:**
-
-- Write the validated design (spec) to `docs/reasonix/specs/YYYY-MM-DD-<topic>-design.md` (user preferences override this default)
-- Commit the design document to git
-
-**Spec Self-Review** — fresh eyes on the spec:
-
-1. **Placeholder scan:** Any "TBD", "TODO", incomplete sections, vague requirements? Fix them.
-2. **Internal consistency:** Sections contradict? Architecture match the feature descriptions?
-3. **Scope check:** Focused enough for one implementation plan, or needs decomposition?
-4. **Ambiguity check:** Any requirement interpretable two ways? Pick one; make it explicit.
-
-Fix inline. No re-review — fix and move on.
-
-**User Review Gate** — after the spec review loop passes:
-
-> "Spec written and committed to `<path>`. Please review it and let me know if you want any changes before we start writing the implementation plan."
-
-Wait for the user's response. Changes requested? Make them; re-run the spec review loop. Only proceed once the user approves.
-
-**Implementation:**
-
-- Use the **superpowers-writing-plans** skill to create a detailed implementation plan
-- Do NOT invoke any other skill. superpowers-writing-plans is the next step.
-
-## Key Principles
-
-- **Classify first** — spike, bounded, or architectural; say it out loud
-- **One question at a time** — don't overwhelm
-- **Multiple choice preferred** (use the `ask` tool) — easier than open-ended
-- **YAGNI ruthlessly** — cut unnecessary features from all designs
-- **Explore alternatives** — always propose 2-3 approaches before settling (architectural path)
-- **Incremental validation** — present design, get approval before moving on
-- **Be flexible** — clarify when something doesn't make sense
-- **Ratchet, don't downgrade** — hidden complexity upgrades the path; nothing downgrades mid-task
+|---|---|
+| "I can pick a plausible app from this vague request" | Ask what the user wants to accomplish first. |
+| "A menu of features will save them effort" | Options steer; ask them to describe the situation first. |
+| "The sensible default needs no mention" | State consequential choices so they can correct them. |
+| "The spike worked, so I'll keep building" | Ask whether its result matches what they want before making it permanent. |
+| "They approved the idea, so every detail is approved" | Approval covers the description they saw. Surface a material new decision. |
