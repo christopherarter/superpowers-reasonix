@@ -16,6 +16,13 @@ decides whether a skill or Reasonix changes.
 finding. Every number comes from the transcript or from a command you ran,
 never from memory.
 
+**Resolve bundled assets:** The skill loader's header gives the absolute path
+to this `SKILL.md`. Use its containing directory as the asset root. Resolve
+every `prompts/`, `templates/`, and `references/` path below against that
+root before reading it or passing it to a native `task` worker. Workers run
+from the project directory and do not inherit this skill's path; give each
+worker the case path and every needed asset as an absolute path.
+
 ## Workflow
 
 Create a todo per step. Steps 5–7 run only on their stated condition.
@@ -35,7 +42,8 @@ Create a todo per step. Steps 5–7 run only on their stated condition.
    provenance rules for environment and skill observations.
 3. **Triage.** Read the region around the reported problem yourself. Then
    dispatch one analyst with Reasonix's native `task` per dimension in parallel, each given the
-   case file path, `prompts/analyst-common.md`, and one dimension file from
+   absolute case file path, absolute `prompts/analyst-common.md` and
+   `references/context-safety.md` paths, and one absolute dimension file from
    `prompts/`: `skill-timeline.md`,
    `plan-adherence.md`, `repeated-work.md`, `stumbles.md`,
    `quality-evidence.md`, `request-conflicts.md`, `cost-and-time.md`.
@@ -58,7 +66,8 @@ Create a todo per step. Steps 5–7 run only on their stated condition.
    level, stating what each includes: skeleton (no tool-result bodies),
    evidence (bodies only for cited events), full. Build the bundle per
    `templates/bundle-README.md`, dispatch `prompts/scrub.md`, then
-   `prompts/scrub-audit.md`, repeating both until the audit returns CLEAN.
+   `prompts/scrub-audit.md`, giving each worker the absolute
+   `references/redaction-policy.md` path and repeating both until the audit returns CLEAN.
    Complete the bundle template's evidence check and reconciliation before
    showing the final scrub log, file list, and privacy and evidence outcomes.
    Archive (`zip -r` or `tar -czf`) only after approval. With the archive
@@ -66,7 +75,8 @@ Create a todo per step. Steps 5–7 run only on their stated condition.
    say scrubbing can miss things: they must review every file before sharing.
 7. **Similar sessions** — when asked. Turn confirmed findings into a
    signature, list candidates by mtime and size, find marker line numbers,
-   dispatch `prompts/similar-session.md` per candidate in parallel, and
+   dispatch `prompts/similar-session.md` per candidate in parallel with the
+   absolute `references/context-safety.md` path, and
    append report §9.
 
 ## Quick reference

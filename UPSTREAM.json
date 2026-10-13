@@ -8,7 +8,7 @@
   "reasonix": {
     "repo": "https://github.com/esengine/DeepSeek-Reasonix",
     "branch": "main-v2",
-    "contractPaths": ["internal/tool", "internal/hook", "internal/skill", "internal/frontmatter", "internal/command"],
+    "contractPaths": ["internal/tool", "internal/hook", "internal/skill", "internal/frontmatter", "internal/command", "internal/boot", "internal/sessioncontext", "internal/sessioncatalog"],
     "lastVerifiedCommit": "afbc1c0a07e0c3a5dd85489eb9b6be622e22324b",
     "lastVerifiedDate": "2026-10-13"
   },

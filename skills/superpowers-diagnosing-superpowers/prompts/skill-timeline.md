@@ -1,4 +1,4 @@
-Read `prompts/analyst-common.md` first; it gives your role, inputs,
+Read the analyst-common.md at the absolute path supplied in your task first; it gives your role, inputs,
 context-safety rules, and the return format. This file adds the dimension.
 
 Dimension: Skill timeline
@@ -14,10 +14,13 @@ Build the per-human-turn record of skill and plugin use, then look for gaps.
    hook used. Use only the evidenced tool, attribution, agent-dispatch, MCP,
    and hook meanings recorded in the case file; identify values associated
    with something other than `superpowers`.
-4. For each human turn, compare the request text against the trigger
-   descriptions of the superpowers skills installed (read
-   `<install root>/skills/*/SKILL.md` frontmatter `description` lines; the
-   install root is in the case file). Report as findings:
+4. For each human turn, compare the request text against trigger
+   descriptions **evidenced for that session at that time**: a captured
+   session-context catalog, archived installation, or dated file content
+   established in CASE. A currently installed `SKILL.md` is only a current
+   observation; do not use it to claim a past missed or late trigger unless
+   you have evidence that the same description was active then. If historical
+   descriptions are unavailable, mark this comparison unresolved. Report as findings:
    - a skill invoked, with the request that preceded it (one finding per
      invocation is fine when there are few; group by skill when many);
    - a turn whose request matches a skill's trigger description with no

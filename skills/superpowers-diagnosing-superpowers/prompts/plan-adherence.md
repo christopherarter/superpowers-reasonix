@@ -1,4 +1,4 @@
-Read `prompts/analyst-common.md` first; it gives your role, inputs,
+Read the analyst-common.md at the absolute path supplied in your task first; it gives your role, inputs,
 context-safety rules, and the return format. This file adds the dimension.
 
 Dimension: Plan adherence

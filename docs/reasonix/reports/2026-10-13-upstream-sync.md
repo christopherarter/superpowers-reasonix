@@ -13,6 +13,8 @@ Both remote heads were refreshed on 2026-10-13. `UPSTREAM.json` records that ver
 
 The GitHub compare API returned exactly 300 files for the Reasonix range and omitted the watched `internal/*` files. The detector now obtains a full Git diff when the API page is full or lacks a file list. A local 301-file regression test places the watched file after the API limit. The full Reasonix comparison contained 7,224 changed paths, including 191 watched paths.
 
+The watched contract roots now also include `internal/boot`, `internal/sessioncontext`, and `internal/sessioncatalog`, which carry tool registration, session-context delivery, and session discovery behavior used by this port. A regression test confirms a change confined to those roots opens drift.
+
 ## Skill port
 
 - Refreshed **brainstorming** for open questions, playback, quick clear tasks, explicit assumptions, and a builder check for written designs. Reasonix's terminal workflow uses text sketches; the upstream browser visual companion and server scripts were not copied.
@@ -21,6 +23,7 @@ The GitHub compare API returned exactly 300 files for the Reasonix range and omi
 - Updated **test-driven-development** to require a full-suite run before completion and **systematic-debugging** to avoid printing secret environment values in an example.
 - Updated **writing-skills** for YAML frontmatter, dynamic session-context discovery, current tool names, and interpreter-based invocation of bundled scripts.
 - Added **diagnosing-superpowers** with the upstream analyst prompts, references, and report templates adapted for this repository and Reasonix. It requires problem intake and exact-text approval before filing an issue.
+- Resolved bundled prompt and template paths against each loaded skill's absolute path before native subagent dispatch; historical diagnosis compares triggers only with session-era skill descriptions.
 
 Previously retired upstream skills remain retired where Reasonix has native `task`, `review`, or `explore` tools. No existing port skill was removed.
 
@@ -32,9 +35,11 @@ At the verified Reasonix head, `internal/boot/boot.go` still calls `skill.NewRea
 
 The sync playbook now treats `.github/scripts/check-upstream-drift.mjs` as issue-writing, uses read-only Git comparisons for inspection, and leaves issue #11 open until the synchronized PR reaches `main`.
 
+The shipped `AGENTS.md.example` and README now describe the dynamic catalog and current skill loader, and the project `AGENTS.md` routes retrospective session investigations to the new diagnosis skill.
+
 ## Verification
 
-- `npm test`: 75 passed, 0 failed.
+- `npm test`: 76 passed, 0 failed.
 - `node bench/bench.mjs`: structural gate 12/12 skills passed; behavioral gate skipped because `DEEPSEEK_API_KEY` is unavailable.
 - Execution-fidelity pressure tests: before/after subagent scenarios checked the changed brainstorming, writing-plans, executing-plans, writing-skills, and new diagnosis guidance. The API-backed execution-fidelity baseline could not run without `DEEPSEEK_API_KEY`.
 - `git diff --check`: clean.

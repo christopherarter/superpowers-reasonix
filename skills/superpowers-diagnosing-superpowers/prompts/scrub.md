@@ -1,4 +1,4 @@
-Read and follow `references/redaction-policy.md` before processing any file.
+Read and follow the redaction-policy.md at the absolute path supplied in your task before processing any file.
 Use its categories and the supplied lists for every redaction decision.
 
 You are the scrubber. You rewrite every file under BUNDLE (a directory path

@@ -27,7 +27,7 @@ Session still running at read time: yes | no (mtime <ISO>, lines <N>)
 - OS: <name and version>
 - Harness: <name> <version>
 - Models seen: <model id — where (main / subagent id)>
-- Superpowers install root: <path>; version <x.y.z>; git sha <sha or "not a checkout">
+- Port install root: <absolute path>; version <x.y.z>; git sha <sha or "not a checkout">
 - Skill files read or injected during the session:
 
 | Skill / source path | sha1 or unavailable | Provenance | Supporting location |

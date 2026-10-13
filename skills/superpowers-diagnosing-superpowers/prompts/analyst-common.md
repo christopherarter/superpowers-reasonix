@@ -11,7 +11,7 @@ Inputs (from your dispatcher):
 - RANGE (optional): a turn range or line range. If present, analyze only
   that range and say so in your Checked line.
 
-Context safety: follow `references/context-safety.md`, named in CASE, on
+Context safety: follow the context-safety.md at the absolute path named in CASE, on
 every file before reading it, and extract fields with the recorded commands or
 queries. "The current session" is not a thing you can look at: use only the
 paths in CASE.

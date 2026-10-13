@@ -47,7 +47,7 @@ If the work grows, say so and step up a size. If the request contains several in
 
 Write `docs/reasonix/specs/YYYY-MM-DD-<topic>-design.md` unless the user chooses another location. Cover intent and why, goals and non-goals, constraints, the implementation choices the user actually made, and decisions left to the builder. Commit the document.
 
-Ask a fresh Reasonix `task` subagent to read the design as a builder who has no conversation history, using `builder-check-prompt.md`. Resolve questions answerable from the conversation or repo in the document. Mark minor decisions you make as your own. Ask the user only about choices that change the result. If no subagent tool is available, perform that check yourself and say so.
+Ask a fresh Reasonix `task` subagent to read the design as a builder who has no conversation history. Give it the absolute design path and the absolute path to `builder-check-prompt.md` next to this `SKILL.md` (the loader header gives this skill's path). Resolve questions answerable from the conversation or repo in the document. Mark minor decisions you make as your own. Ask the user only about choices that change the result. If no subagent tool is available, perform that check yourself and say so.
 
 Present the document and the decisions you made for review. Once accepted, load **superpowers-writing-plans**. Do not start product implementation from an unapproved project design unless the user already authorized that scope or opted out of design questions.
 

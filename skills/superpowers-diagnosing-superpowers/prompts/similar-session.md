@@ -16,7 +16,7 @@ Inputs:
   - `free: <one-line description>` (use only the transcript to judge)
 
 Procedure:
-1. Apply `references/context-safety.md` to CANDIDATE. Extract its identity
+1. Apply the context-safety.md at the absolute path supplied in your task to CANDIDATE. Extract its identity
    with the commands recorded in CASE: session id, cwd, first human prompt,
    first timestamp, harness version, and models.
 2. For each marker, locate evidence with line-number-first commands; then

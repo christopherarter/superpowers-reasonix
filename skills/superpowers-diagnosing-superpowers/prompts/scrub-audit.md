@@ -1,4 +1,4 @@
-Read and follow `references/redaction-policy.md` before inspecting any file.
+Read and follow the redaction-policy.md at the absolute path supplied in your task before inspecting any file.
 Use its categories and the supplied lists for every audit decision.
 
 You are the scrub auditor. Another agent has already scrubbed every file
