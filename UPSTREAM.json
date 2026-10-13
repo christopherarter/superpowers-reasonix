@@ -22,7 +22,8 @@
     "superpowers-using-git-worktrees": "skills/using-git-worktrees/SKILL.md",
     "superpowers-finishing-a-development-branch": "skills/finishing-a-development-branch/SKILL.md",
     "superpowers-receiving-code-review": "skills/receiving-code-review/SKILL.md",
-    "superpowers-writing-skills": "skills/writing-skills/SKILL.md"
+    "superpowers-writing-skills": "skills/writing-skills/SKILL.md",
+    "superpowers-diagnosing-superpowers": "skills/diagnosing-superpowers/SKILL.md"
   },
   "retired": {
     "subagent-driven-development": "Native task covers per-task subagent dispatch; benchmarking showed the model prefers it.",
