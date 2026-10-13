@@ -1,6 +1,8 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { evaluateSkill } from './structural.mjs';
+import { loadSkills } from './lib/skills.mjs';
+import { fileURLToPath } from 'node:url';
 
 const ok = { name: 'brainstorming', stem: 'brainstorming',
   frontmatter: { name: 'brainstorming', description: 'turn idea into design' }, refs: [] };
@@ -34,4 +36,12 @@ test('unknown allowed-tools name is a FAIL', () => {
   const r = evaluateSkill(sub);
   assert.equal(r.level, 'FAIL');
   assert.ok(r.issues.some((i) => /Grep/.test(i)));
+});
+
+test('skill examples do not print environment variable values', () => {
+  const skillsDir = fileURLToPath(new URL('../skills', import.meta.url));
+  const leaking = loadSkills(skillsDir)
+    .filter(({ body }) => /\benv\s*\|\s*grep\b/.test(body))
+    .map(({ name }) => name);
+  assert.deepEqual(leaking, []);
 });
