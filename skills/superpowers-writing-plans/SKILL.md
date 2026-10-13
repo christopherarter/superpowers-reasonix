@@ -7,9 +7,7 @@ description: Got a spec or requirements for a multi-step task? Load first, befor
 
 ## Overview
 
-Write plans for an engineer with zero codebase context and questionable taste. Document everything: files per task, code, testing, docs to check, how to test. Whole plan as bite-sized tasks. DRY. YAGNI. TDD. Frequent commits.
-
-Skilled, but knows almost nothing about our toolset or domain. Assume weak test design.
+Write plans for an engineer who has not seen the codebase or spec but can write idiomatic code once the interface and test are exact. Record decisions they cannot know: files, names and signatures, values from the spec, and tests proving each task. DRY. YAGNI. TDD. Frequent commits.
 
 **Announce at start:** "I'm using the superpowers-writing-plans skill to create the implementation plan."
 
@@ -31,9 +29,9 @@ Before tasks, map which files get created/modified and each one's responsibility
 - Files that change together live together. Split by responsibility, not technical layer.
 - Existing codebases: follow established patterns. Modifying an unwieldy file? Planning a split is fine.
 
-## Bite-Sized Task Granularity
+## Step Granularity
 
-**Each step = one action (2-5 minutes):**
+**Each step = one action with a checkable result:**
 - "Write the failing test" — step
 - "Run it to make sure it fails" — step
 - "Implement the minimal code to make the test pass" — step
@@ -57,6 +55,10 @@ Before tasks, map which files get created/modified and each one's responsibility
 
 **Spec:** [path to the spec/design doc this plan implements — the plan
 argues from the spec, so the spec travels with it; executors read both]
+
+## Review Focus
+
+[List the five input classes or failure modes implied by the spec that no task's tests yet exercise and are most likely to affect users. For each, state the input or condition and expected behavior. Add a test for each to the owning task. If none, say you checked and found none.]
 
 ---
 ```
@@ -84,12 +86,9 @@ def test_specific_behavior():
 Run: `pytest tests/path/test.py::test_name -v`
 Expected: FAIL with "function not defined"
 
-- [ ] **Step 3: Write minimal implementation**
+- [ ] **Step 3: Implement `function(input: InputType) -> ResultType` in `exact/path/to/file.py`**
 
-```python
-def function(input):
-    return expected
-```
+One line on the approach if the signature and test leave a material choice. Include a body only for an algorithm they do not determine or exact code the spec fixes.
 
 - [ ] **Step 4: Run test to verify it passes**
 
@@ -104,19 +103,20 @@ git commit -m "feat: add specific feature"
 ```
 ````
 
-## No Placeholders
+## What Each Step Contains
 
-Every step contains the actual content an engineer needs. These are **plan failures** — NEVER write them:
-- "TBD", "TODO", "implement later", "fill in details"
-- "Add appropriate error handling" / "add validation" / "handle edge cases"
-- "Write tests for the above" (without actual test code)
-- "Similar to Task N" (repeat the code — engineer may read tasks out of order)
-- Steps describing what to do without showing how (code blocks required for code steps)
-- References to types, functions, or methods not defined in any task
+A step should let the implementer write exactly one reasonable thing:
+
+- **Test:** test name and assertions as code, with the spec's exact values.
+- **Code:** exact file and signature, plus values fixed by the spec. Include a body only when the test and signature do not determine the algorithm.
+- **Verification:** exact command and expected pass output.
+- **Cross-task reference:** name the interface from the producing task's Interfaces block. Do not duplicate its code.
+
+Reject placeholders such as "TBD", "handle edge cases", or "write tests for the above". Also reject a plan that writes out an obvious implementation body: it adds volume without deciding anything.
 
 ## Remember
 - Exact file paths always
-- Complete code in every step — step changes code, show the code
+- Exact signatures and tests; code bodies only where needed to remove ambiguity
 - Exact commands with expected output
 - DRY, YAGNI, TDD, frequent commits
 
@@ -126,15 +126,19 @@ After the full plan, reread the spec fresh and check the plan against it. Checkl
 
 **1. Spec coverage:** Skim each spec section/requirement. Point to a task implementing it? List gaps.
 
-**2. Placeholder scan:** Search the plan for the "No Placeholders" red flags above. Fix them.
+**2. Step scan:** Each step permits exactly one reasonable implementation choice. Remove vague placeholders and redundant bodies.
 
 **3. Type consistency:** Types, method signatures, property names in later tasks match earlier tasks? `clearLayers()` in Task 3 but `clearFullLayers()` in Task 7 is a bug.
+
+**4. Review Focus:** Identify the five most likely input classes or failure modes implied by the spec but not yet covered. Add each test to its owning task. Silence in the spec is not permission for common input to break.
+
+**5. Proportion:** If the plan is several times longer than the spec or code blocks dominate, replace obvious bodies with signatures and assertions while preserving all decisions.
 
 Fix inline. No re-review — fix and move on. Spec requirement with no task? Add the task.
 
 ## Execution Handoff
 
-After saving, offer execution choice:
+After saving and reviewing the plan, link it for the user to inspect. If they already chose an execution method, preserve it; otherwise explain the native `task` per-task approach and inline execution, recommend one based on the plan, and ask for their choice. Existing user authorization for the work and method still applies.
 
 **"Plan complete and saved to `docs/reasonix/plans/<filename>.md`. Two execution options:**
 
