@@ -27,20 +27,17 @@ Write the filled `templates/issue.md` to the workspace and show the exact
 text. After approval:
 
 ```bash
-gh issue create --repo christopherarter/superpowers-reasonix --title "<title>" --body-file <path> \
-  --label bug --label automated-issue-report
+gh issue create --repo christopherarter/superpowers-reasonix --title "<title>" --body-file <path>
 ```
 
-GitHub drops labels silently when the reporter lacks push access, so the
-labels land only for collaborators; the template footer still marks the
-issue as skill-filed. `gh` cannot attach files: give your partner the
+Add labels only after checking that the repository defines them and the
+reporter has permission. `gh` cannot attach files: give your partner the
 bundle path to attach through the browser after the issue exists.
 
-Without `gh`, hand over a prefilled link on the `diagnosis_report.md`
-template, which applies both labels for any reporter:
+Without `gh`, hand over a prefilled new-issue link:
 
 ```
-https://github.com/christopherarter/superpowers-reasonix/issues/new?template=diagnosis_report.md&title=<url-encoded title>&body=<url-encoded body>
+https://github.com/christopherarter/superpowers-reasonix/issues/new?title=<url-encoded title>&body=<url-encoded body>
 ```
 
 GitHub rejects URLs over about 8,000 characters; past that, send the link
