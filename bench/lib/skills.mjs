@@ -7,7 +7,8 @@ export const NAME_RE = /^[a-zA-Z0-9][a-zA-Z0-9._-]{0,63}$/;
 // Registry tool names valid in `allowed-tools` (snake_case, per the npm build).
 export const KNOWN_TOOLS = new Set([
   'read_file', 'edit_file', 'multi_edit', 'write_file', 'bash', 'grep', 'glob',
-  'ls', 'web_fetch', 'todo_write', 'ask', 'run_skill', 'read_skill',
+  'ls', 'web_fetch', 'web_search', 'todo_write', 'ask', 'run_skill',
+  'read_only_skill', 'use_capability', 'task', 'read_only_task',
   'explore', 'review', 'research', 'security_review',
 ]);
 

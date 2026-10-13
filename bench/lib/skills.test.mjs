@@ -27,3 +27,10 @@ test('KNOWN_TOOLS contains snake_case registry names', () => {
     assert.ok(KNOWN_TOOLS.has(t), `${t} should be known`);
   }
 });
+
+test('KNOWN_TOOLS tracks current Reasonix skill and discovery tools', () => {
+  for (const t of ['task', 'read_only_task', 'read_only_skill', 'use_capability', 'web_search']) {
+    assert.ok(KNOWN_TOOLS.has(t), `${t} should be known`);
+  }
+  assert.ok(!KNOWN_TOOLS.has('read_skill'), 'unimplemented read_skill should not be suggested');
+});

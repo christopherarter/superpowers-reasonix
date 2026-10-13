@@ -57,7 +57,7 @@ The host supplies the current skill catalog in session context, with entries cli
 Every `references/*.md` sibling is **appended to the body at load time**, sorted by filename, each under `## Reference: <name>`. Put depth material there — ships inline, no `read_file`. `scripts/`, `assets/`, `references/`, dot-dirs **never scanned** as nested skills. Subagent skill: references join the child's prompt — budget accordingly. Invoke bundled scripts through their interpreter in prose (`bash scripts/tool.sh`, `node scripts/tool.js`), never by bare path: packaging can strip executable bits.
 
 ### Tool names are snake_case
-Use literal names from the current Reasonix tool registry. Common names include `read_file`, `write_file`, `edit_file`, `multi_edit`, `ls`, `glob`, `grep`, `bash`, `web_fetch`, `todo_write`, `run_skill`, `read_only_skill`, `use_capability`, `task`, and `explore`. `read_skill` is no longer registered. **No `web_search`** — only `web_fetch`. TitleCase `Read`/`Edit`/`Bash` don't exist; a typo in `allowed-tools` is silently dropped (subagent just lacks that tool).
+Use literal names from the current Reasonix tool registry. Common names include `read_file`, `write_file`, `edit_file`, `multi_edit`, `ls`, `glob`, `grep`, `bash`, `web_fetch`, `web_search`, `todo_write`, `run_skill`, `read_only_skill`, `use_capability`, `task`, and `explore`. The current upstream boot code still mentions `read_skill`, but its constructor is absent from the skill package at the verified commit; do not author a new dependency on it until upstream resolves that mismatch. TitleCase `Read`/`Edit`/`Bash` don't exist; a typo in `allowed-tools` is silently dropped (subagent just lacks that tool).
 
 ## Subagent Skills (authoring rules)
 

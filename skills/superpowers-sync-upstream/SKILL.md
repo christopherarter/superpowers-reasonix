@@ -11,15 +11,15 @@ Re-aligns this port with its two upstreams and re-pins `UPSTREAM.json`. Run when
 
 Read `UPSTREAM.json` for the pinned commits and watched paths, then see what moved:
 
-`node .github/scripts/check-upstream-drift.mjs` prints which upstreams drifted (read-only).
+Do not run `.github/scripts/check-upstream-drift.mjs` for a read-only check: it can create or update the tracking issue. Inspect the pinned SHAs with `git ls-remote` or `gh api repos/<owner>/<repo>/commits/<branch>`, then compare the two endpoints with Git. Use the issue-writing script only when updating the tracker is intended.
 
 For full diffs, shallow-fetch and compare from the pins:
 
-`git clone --filter=blob:none --no-checkout <obra.repo> /tmp/obra && git -C /tmp/obra diff <obra.lastSyncedCommit>..HEAD -- skills/`
+Fetch both the pinned commit and current default-branch head into a temporary blobless clone, then run `git diff --no-renames <pin> <head> -- skills/`. A GitHub compare API response with 300 files may be truncated; do not treat it as complete.
 
-`git clone --filter=blob:none --no-checkout <reasonix.repo> /tmp/rx && git -C /tmp/rx diff <reasonix.lastVerifiedCommit>..origin/main-v2 -- internal/tool internal/hook internal/skill internal/frontmatter internal/command`
+For Reasonix, diff the pin against `main-v2` over `internal/tool internal/hook internal/skill internal/frontmatter internal/command`. Inspect actual tool registration and implementation together; a declared identity alone does not prove a callable tool exists.
 
-Network blocked? `web_fetch` the GitHub compare page: `<repo>/compare/<pinned>...<branch>`. This step is read-only; dispatch it to a `task` subagent and keep only the drift report to save context.
+Network blocked? `web_fetch` the GitHub compare page: `<repo>/compare/<pinned>...<branch>`, and label incomplete file lists. This step is read-only; dispatch it to a `task` subagent when appropriate and keep only the drift report to save context.
 
 ## 2. Classify content drift
 
@@ -53,4 +53,4 @@ Any structural failure or exec score below baseline blocks acceptance. Fix the s
 
 ## 6. Finalize
 
-Bump `UPSTREAM.json` commits and dates to the synced HEADs, close the open `upstream-drift` issue, write a short report (changed, ported, retired, bench result), and commit.
+Bump `UPSTREAM.json` commits and dates to the synced HEADs, write a short report (changed, ported, retired, bench result), and commit. Close the open `upstream-drift` issue only after the synchronized changes reach `main` (for example, via the PR's closing keyword).
