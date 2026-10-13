@@ -1,70 +1,57 @@
 ---
 name: superpowers-executing-plans
-description: Executing a written plan step-by-step in this session, with checkpoints? Load this first.
+description: Executing a written plan yourself? Load first to track progress and verify each task.
 ---
 
 # Executing Plans
 
-## Overview
-
-Load plan. Review critically. Execute all tasks. Report when complete.
+Execute the plan yourself, task by task, in this session. The plan carries the design; a persistent ledger carries your decisions and progress through compaction. TDD is the per-task gate, and a fresh whole-branch review is the final second opinion.
 
 **Announce at start:** "I'm using the superpowers-executing-plans skill to implement this plan."
 
-**Note:** Reasonix has first-class subagent orchestration. Higher quality on multi-task plan: dispatch fresh subagent per task via native **`task`** tool (`wait` joins parallel jobs, `review` runs code-review) instead of inline. Use this skill when executing plan yourself, in-session, with checkpoints.
+Continue from one task to the next without asking the user to say "continue." User instructions and approvals already given remain valid. Keep commentary concise; the ledger and test output carry the detail.
 
-## The Process
+## Setup
 
-### Step 1: Load and Review Plan
-1. Ensure an isolated workspace: use **superpowers-using-git-worktrees** to create one, or verify the existing one
-2. `read_file` the plan
-3. Review critically — find questions or concerns
-4. Concerns? Raise with human partner before starting
-5. No concerns? Create `todo_write` list, proceed
+1. Verify an isolated worktree using **superpowers-using-git-worktrees**. Do not implement on `main` without explicit authorization.
+2. Read the plan and linked spec. If they conflict, the spec is binding; when neither answers, make a reasonable ruling.
+3. Create a task list with Reasonix `todo_write`. Todos show current status; they do not replace the ledger.
+4. Create a ledger at `~/.reasonix/plan-ledgers/<repo>/<plan-name>.md` (or another persistent, plan-specific location). Its first line names the absolute plan path. Check for an existing ledger first; after compaction, trust its completed-task lines and `git log` rather than your memory. Never overwrite a ledger for a different plan.
+5. Load **superpowers-test-driven-development** before Task 1. Scan task interfaces for conflicts and record pre-flight findings in the ledger. Record `Pre-flight: no shared interfaces` when none exist.
 
-### Step 2: Execute Tasks
+Keep plan-specific artifacts together. Don't remove another plan's ledger. If the ledger is lost, reconstruct completion from commits and tests before continuing.
 
-Per task:
-1. Mark in_progress
-2. Follow each step exactly (steps are bite-sized) — actually create the files the task specifies
-3. Run verifications as specified (via `bash`)
-4. Mark completed
+## Task Loop
 
-### Step 3: Complete Development
+For each incomplete task:
 
-After all tasks complete and verified:
-- Announce: "I'm using the superpowers-finishing-a-development-branch skill to complete this work."
-- **REQUIRED SUB-SKILL:** use **superpowers-finishing-a-development-branch** skill
-- Follow it: verify tests, present options, execute choice
+1. Read that task's exact brief and note `BASE`, the commit before its work. Mark the todo in progress.
+2. Follow its steps in RED-GREEN order. Run each command and compare actual output with its `Expected:` line. A test that passes before implementation needs investigation.
+3. If code is wrong, load **superpowers-systematic-debugging** and find the cause. If the plan is wrong or ambiguous, make the smallest decision satisfying the spec and add `Task N: Ruling: <decision> — <why> — <cost if wrong>` to the ledger. Continue. An unrecorded deviation is a hidden decision.
+4. Commit as the plan directs. Verify every named test exists and ran, every expected output was checked, and the final task test command passed. Load **superpowers-verification-before-completion** before claiming task completion.
+5. Append `Task N: complete (commits <BASE>..<HEAD>, tests: <command> → <result>)` to the ledger only after the test passes. Mark the todo complete and take the next task.
 
-## When to Stop and Ask for Help
+Record rulings and completion as work happens, not at the end. After compaction, resume at the first task without a completion line. A task spanning multiple commits uses its saved `BASE`, not `HEAD~1`.
 
-**STOP executing immediately when:**
-- Hit blocker (missing dependency, test fails, instruction unclear)
-- Plan has critical gaps preventing start
-- Don't understand an instruction
-- Verification fails repeatedly
+## When to Stop
 
-**Ask for clarification. Never guess.**
+Resolve routine conflicts and plan gaps by ruling and continuing. Stop only for an irreversible or destructive action, a security-sensitive action, an external side effect that normally needs user approval, or a plan so broken that every path forward is a guess. Existing user authorization satisfies a gate; do not ask twice.
 
-## When to Revisit Earlier Steps
+## Whole-Branch Review
 
-**Return to Review (Step 1) when:** partner updates plan from your feedback, or approach needs rethinking.
+After all tasks pass, review the full range from the branch's merge base to `HEAD`, not only the last commit. Give a fresh native Reasonix `review` or `task` reviewer the plan, spec, diff, ledger rulings, and the plan's Review Focus. If no independent reviewer is available, perform a separate self-review and disclose that limit.
 
-**Don't force through blockers** — stop and ask.
+Re-grade findings by the effect on a reasonable user, even when the spec is silent. Fix critical and important findings in one pass: reproduce each with a failing test, make it pass, run the full suite, and record `Final: fixed <finding> — <test> RED→GREEN, suite <result>`. Record deferred minor findings in the ledger and final handoff. If you decline a substantive finding, ledger a ruling with the cost if wrong. Do not silently discard reviewer concerns.
 
-## Remember
-- Review plan critically first
-- Follow plan steps exactly — actually create the files each task specifies
-- Don't skip verifications. Run the tests the plan directs (use **superpowers-verification-before-completion** skill before claiming done)
-- Reference skills when plan says to
-- Report completion WITH evidence (test output) — never claim done blindly
-- Stop when blocked, don't guess
-- Never start implementation on main/master branch without explicit user consent
+Then load **superpowers-finishing-a-development-branch**. Report the verification evidence and all rulings and deferred minors. Preserve the ledger until the branch result is settled; remove only this plan's scratch files when they are no longer needed.
 
-## Integration
+## Red Flags
 
-**Required workflow skills:**
-- **superpowers-using-git-worktrees** — ensures isolated workspace
-- **superpowers-writing-plans** — creates the plan this skill executes
-- **superpowers-finishing-a-development-branch** — completes development after all tasks
+| Thought | Reality |
+|---|---|
+| "I remember Task N" | Read the exact brief; memory is a summary. |
+| "The test should pass" | Run it and read the output. |
+| "I'll write ledger lines later" | Compaction may happen before later. Record each decision now. |
+| "The plan is wrong, so I'll just do the right thing" | Rule, ledger the reason and cost, then continue. |
+| "I should check in before the next task" | Continue through the authorized plan. |
+| "I reviewed my own diff, so a fresh review adds nothing" | A fresh context can catch assumptions carried from implementation. |
