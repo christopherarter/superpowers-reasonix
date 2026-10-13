@@ -154,6 +154,12 @@ Confirm: passes, other tests still pass, output pristine (no errors/warnings).
 
 Fails? Fix code, not test. Other tests fail? Fix now.
 
+"Other tests" means the project's full suite. A passing focused test does
+not establish that the change is done. Before reporting completion, run the
+repository's test command (`npm test`, `pytest`, `cargo test`, or its equivalent)
+even when the task names one file. Report every failure by name, including a
+failure you did not cause; a scoped deliverable does not narrow verification.
+
 ### REFACTOR — clean up
 
 After green only: kill duplication, improve names, extract helpers. Stay green. Don't add behavior.
