@@ -45,7 +45,7 @@ Each new run surfaces new rationalizations. For every one:
 
 ## Meta-Testing the Description
 
-Separately test discovery: give a subagent a realistic *trigger* situation and the pinned-index line only (name + description), and ask whether it would load the skill. If it wouldn't, the description's triggering conditions are wrong — fix them. Remember the description must be *when to use*, never *what it does* (a workflow summary makes the model follow the summary and skip the body).
+Separately test discovery: give a subagent a realistic *trigger* situation and the session-context catalog line only (name + description), and ask whether it would load the skill. If it wouldn't, the description's triggering conditions are wrong — fix them. Remember the description must be *when to use*, never *what it does* (a workflow summary makes the model follow the summary and skip the body).
 
 ## Success Criteria by Skill Type
 

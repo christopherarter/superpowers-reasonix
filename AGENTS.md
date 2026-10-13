@@ -16,6 +16,7 @@ Match the situation:
 | If… | Load this FIRST |
 |---|---|
 | starting a feature, or you have a rough idea | **superpowers-brainstorming** |
+| investigating why a past or current Reasonix session was slow, repetitive, or skipped a skill | **superpowers-diagnosing-superpowers** |
 | a bug, a failing or flaky test, or anything surprising | **superpowers-systematic-debugging** |
 | writing or fixing any code | **superpowers-test-driven-development** |
 | you have a spec for a multi-step task | **superpowers-writing-plans** |
@@ -55,4 +56,3 @@ superpowers-systematic-debugging, superpowers-verification-before-completion —
 1. The user's explicit instructions (this file, `REASONIX.md`, direct asks) win over everything.
 2. Skills override default behavior where they conflict.
 3. A user request says WHAT to do, never "skip the skill." "Add X" still means: load the skill, then add X.
-

@@ -8,11 +8,12 @@ inject SessionStart output into context.
 ## Skills
 
 At the start of every task — before acting, exploring, or asking clarifying
-questions — scan the pinned skills index and load the relevant skill with
-`run_skill` (or `read_skill` in plan mode). If there's even a small chance a
+questions — scan the session-context skills catalog and load the relevant skill with
+`run_skill` (or `read_only_skill` when a read-only session requires it). If there's even a small chance a
 skill applies, load it to check.
 
-Start with the **using-superpowers** skill; it routes to the rest. Process
-skills come first: **superpowers-brainstorming** before building, **superpowers-systematic-debugging**
-before fixing, **superpowers-writing-plans** before multi-step work, and
+Process skills come first: **superpowers-brainstorming** before a new build,
+**superpowers-systematic-debugging** before fixing a bug,
+**superpowers-diagnosing-superpowers** when investigating a session,
+**superpowers-writing-plans** before multi-step work, and
 **superpowers-verification-before-completion** before claiming anything is done.

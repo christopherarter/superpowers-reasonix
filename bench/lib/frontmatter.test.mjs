@@ -56,3 +56,10 @@ test('a colon inside a value is preserved (split on first colon only)', () => {
   const { frontmatter } = parseFrontmatter('---\ndescription: use X: do Y\n---\n');
   assert.equal(frontmatter.description, 'use X: do Y');
 });
+
+test('block scalar descriptions follow the current Reasonix YAML contract', () => {
+  const folded = parseFrontmatter('---\ndescription: >\n  One\n  two\n---\n').frontmatter;
+  const literal = parseFrontmatter('---\ndescription: |\n  One\n  two\n---\n').frontmatter;
+  assert.equal(folded.description, 'One two');
+  assert.equal(literal.description, 'One\ntwo');
+});

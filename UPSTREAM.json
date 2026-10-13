@@ -2,15 +2,15 @@
   "obra": {
     "repo": "https://github.com/obra/superpowers",
     "skillsPath": "skills",
-    "lastSyncedCommit": "44c9b2d6e889982ac18c27d05a19fefe335194e1",
-    "lastSyncedDate": "2026-08-03"
+    "lastSyncedCommit": "bb92a77741419a4ab5f06e711a283343f1ada0c3",
+    "lastSyncedDate": "2026-10-13"
   },
   "reasonix": {
     "repo": "https://github.com/esengine/DeepSeek-Reasonix",
     "branch": "main-v2",
-    "contractPaths": ["internal/tool", "internal/hook", "internal/skill", "internal/frontmatter", "internal/command"],
-    "lastVerifiedCommit": "34af76be31668b40a710e98e44c50a82ab9ff333",
-    "lastVerifiedDate": "2026-08-03"
+    "contractPaths": ["internal/tool", "internal/hook", "internal/skill", "internal/frontmatter", "internal/command", "internal/boot", "internal/sessioncontext", "internal/sessioncatalog"],
+    "lastVerifiedCommit": "afbc1c0a07e0c3a5dd85489eb9b6be622e22324b",
+    "lastVerifiedDate": "2026-10-13"
   },
   "skillMap": {
     "superpowers-brainstorming": "skills/brainstorming/SKILL.md",
@@ -22,7 +22,8 @@
     "superpowers-using-git-worktrees": "skills/using-git-worktrees/SKILL.md",
     "superpowers-finishing-a-development-branch": "skills/finishing-a-development-branch/SKILL.md",
     "superpowers-receiving-code-review": "skills/receiving-code-review/SKILL.md",
-    "superpowers-writing-skills": "skills/writing-skills/SKILL.md"
+    "superpowers-writing-skills": "skills/writing-skills/SKILL.md",
+    "superpowers-diagnosing-superpowers": "skills/diagnosing-superpowers/SKILL.md"
   },
   "retired": {
     "subagent-driven-development": "Native task covers per-task subagent dispatch; benchmarking showed the model prefers it.",

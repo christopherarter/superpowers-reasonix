@@ -6,7 +6,9 @@ function stripQuotes(v) {
 }
 
 /**
- * Parse a SKILL.md's frontmatter the way Reasonix does (minimal, not YAML).
+ * Parse the YAML frontmatter forms used by this port's benchmark. Reasonix
+ * uses yaml.v3; keep this dependency-free compatibility parser aligned with
+ * the forms the port authors (scalars, block scalars, lists, one-level maps).
  * @param {string} text
  * @returns {{ frontmatter: Record<string,string>, body: string }}
  */
@@ -32,6 +34,18 @@ export function parseFrontmatter(text) {
     if (!m) continue;
     const key = m[1].toLowerCase();
     let value = m[2].trim();
+
+    if (value === '>' || value === '|') {
+      const block = [];
+      let j = i + 1;
+      while (j < fmLines.length && (/^\s+/.test(fmLines[j]) || fmLines[j] === '')) {
+        block.push(fmLines[j].replace(/^  /, ''));
+        j++;
+      }
+      fm[key] = (value === '>' ? block.join(' ') : block.join('\n')).trim();
+      i = j - 1;
+      continue;
+    }
 
     if (value === '') {
       const collectedList = [];

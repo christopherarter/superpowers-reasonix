@@ -1,6 +1,7 @@
 import { execFileSync } from "node:child_process";
 import { loadManifest } from "../../lib/upstream/manifest.mjs";
 import { runDriftCheck } from "../../lib/upstream/check.mjs";
+import { completeCompareFiles } from "../../lib/upstream/compare.mjs";
 
 const manifest = loadManifest(new URL("../../UPSTREAM.json", import.meta.url));
 
@@ -41,8 +42,7 @@ const deps = {
   async fetchCompare(which, from, to) {
     const repo = which === "obra" ? manifest.obra.repo : manifest.reasonix.repo;
     const data = await ghApi(`/repos/${slug(repo)}/compare/${from}...${to}`);
-    if (!data) return null;
-    return (data.files ?? []).map((f) => f.filename);
+    return completeCompareFiles(data, repo, from, to);
   },
   issues: {
     async findOpen(label) {

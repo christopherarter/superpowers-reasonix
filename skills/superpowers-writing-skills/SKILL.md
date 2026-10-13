@@ -17,7 +17,7 @@ description: Creating, editing, or testing a Reasonix skill? Load first, before 
 
 ## What is a Skill?
 
-Reusable playbook the model invokes via `run_skill` / `read_skill` (user: `/name`). Two kinds:
+Reusable playbook the model invokes via `run_skill` (user: `/name`); `read_only_skill` loads it in read-only sessions. Two kinds:
 
 - **Inline** — body folds into the turn as a tool result. Default.
 - **Subagent** (`runAs: subagent`) — body = a child's *system prompt*; runs isolated, returns only its final answer. Use only when work is context-heavy and only the conclusion matters.
@@ -33,39 +33,38 @@ Reusable playbook the model invokes via `run_skill` / `read_skill` (user: `/name
 ### Name
 Regex: `^[a-zA-Z0-9][a-zA-Z0-9._-]{0,63}$` — letters/digits/`.`/`_`/`-`, ≤64 chars, alphanumeric start. Frontmatter `name:` overrides the dir stem.
 
-### Frontmatter — Reasonix's OWN minimal parser, not real YAML
+### Frontmatter — YAML, with Reasonix compatibility flattening
 - `---` opens, next `---` closes. **Unclosed fence → WHOLE file is the body** (no frontmatter). Always close it.
-- Lines = `key: value`. Keys **lowercased** (`runAs`=`runas`). Values trimmed of one quote layer. Empty value + `- item` lines = list (comma-joined), so `allowed-tools` can be a YAML list.
-- **No block scalars** (`>`/`|`), no multi-line values, no nesting. One line per value.
+- YAML is parsed with `yaml.v3`. Keys are lowercased (`runAs`=`runas`), scalar values become strings, sequences are comma-joined, and nested mappings are flattened to their child keys for legacy consumers. Block scalars (`>`/`|`) work. Invalid YAML yields an empty frontmatter map, so validate the file after editing.
 
 Recognized keys:
 
 | Key | Effect |
 |---|---|
 | `name` | identifier (must pass the regex) |
-| `description` | one-liner for the pinned index. **Missing = invisible** (loads, runs by exact name, but undiscoverable) |
+| `description` | one-liner for discovery; missing descriptions give a weak placeholder, so always write a useful trigger |
 | `runAs` | `subagent` → isolated child; else inline |
 | `model` | subagent only: child model (`provider`, bare model, or `provider/model`) |
 | `effort` | subagent only: effort hint (`high`, `max`) |
 | `allowed-tools` | subagent only: comma/list of literal registry tool names; scopes child's tools |
 
-### Pinned index = 130 chars per line
-System prompt lists every described skill as `- <name> [🧬 subagent] — <description>`, clipped to **130 chars incl. name**, whole block capped at 4000 chars. So:
+### Dynamic session-context catalog = 130 chars per line
+The host supplies the current skill catalog in session context, with entries clipped to **130 chars incl. name** and a shared **4000-char** description budget. So:
 - **Front-load triggers** — tail gets cut. Keep it short: 22-char name → ~100 chars before truncation.
-- Worker skill dispatched only by another skill can OMIT `description` to stay out of the index.
+- For manual-only worker skills, set `invocation: manual`; still supply a useful description.
 
 ### references/ auto-fold (undocumented, load-bearing)
-Every `references/*.md` sibling is **appended to the body at load time**, sorted by filename, each under `## Reference: <name>`. Put depth material there — ships inline, no `read_file`. `scripts/`, `assets/`, `references/`, dot-dirs **never scanned** as nested skills. Subagent skill: references join the child's prompt — budget accordingly.
+Every `references/*.md` sibling is **appended to the body at load time**, sorted by filename, each under `## Reference: <name>`. Put depth material there — ships inline, no `read_file`. `scripts/`, `assets/`, `references/`, dot-dirs **never scanned** as nested skills. Subagent skill: references join the child's prompt — budget accordingly. Invoke bundled scripts through their interpreter in prose (`bash scripts/tool.sh`, `node scripts/tool.js`), never by bare path: packaging can strip executable bits.
 
 ### Tool names are snake_case
-Registry names only: `read_file`, `write_file`, `edit_file`, `multi_edit`, `ls`, `glob`, `grep`, `bash`, `web_fetch`, `todo_write`, `run_skill`, `read_skill`, `task`, `explore`. **No `web_search`** — only `web_fetch`. TitleCase `Read`/`Edit`/`Bash` don't exist; a typo in `allowed-tools` is silently dropped (subagent just lacks that tool).
+Use literal names from the current Reasonix tool registry. Common names include `read_file`, `write_file`, `edit_file`, `multi_edit`, `ls`, `glob`, `grep`, `bash`, `web_fetch`, `web_search`, `todo_write`, `run_skill`, `read_only_skill`, `use_capability`, `task`, and `explore`. The current upstream boot code still mentions `read_skill`, but its constructor is absent from the skill package at the verified commit; do not author a new dependency on it until upstream resolves that mismatch. TitleCase `Read`/`Edit`/`Bash` don't exist; a typo in `allowed-tools` is silently dropped (subagent just lacks that tool).
 
 ## Subagent Skills (authoring rules)
 
 Body = child's **system prompt**, not a message to the parent. Write it as persona + procedure + output format; state the `arguments`/`task` string is its **entire** context.
 
 - Only input = `arguments` string. No history. Tell it exactly what its task input contains.
-- **Cannot recurse** — `run_skill`/`task`/skill tools stripped. Can't load other skills. Fold needed discipline (e.g. TDD) into the body or a `references/` file.
+- Check the active subagent tool policy before relying on nested delegation. Read-only skill runs can allow bounded read-only nested delegation. Fold required discipline (e.g. TDD) into the body or a `references/` file when the child cannot load it.
 - No mid-run back-and-forth; returns one final message. Design "ask the controller" as a *reported status* (e.g. `NEEDS_CONTEXT`), not a question.
 - Scope `allowed-tools` to minimum. Empty = inherit all parent tools (minus meta-tools).
 
@@ -102,7 +101,7 @@ description: Writing or fixing any code? Load first — write the failing test b
 - Name by what you DO or the core insight, verb-first / gerund: `condition-based-waiting` > `async-test-helpers`; `superpowers-writing-plans` > `plan-authoring`.
 
 ### Cross-referencing other skills
-Reference by bare name + explicit marker: `**REQUIRED SUB-SKILL:** use the superpowers-test-driven-development skill`. Don't `read_file` another SKILL.md, don't `@`-link it — use `run_skill`/`read_skill` so scope resolution and auto-fold work.
+Reference by bare name + explicit marker: `**REQUIRED SUB-SKILL:** use the superpowers-test-driven-development skill`. Don't `read_file` another SKILL.md, don't `@`-link it — use `run_skill` so scope resolution and auto-fold work.
 
 ## The Iron Law (Same as TDD)
 
@@ -156,7 +155,7 @@ After writing ANY skill, STOP and finish its test+deploy cycle. Don't batch-crea
 
 **REFACTOR:** [ ] counters for new rationalizations · [ ] rationalization table · [ ] red-flags list · [ ] re-test until bulletproof
 
-**Subagent skills:** [ ] body = system prompt · [ ] states task is its entire context · [ ] `allowed-tools` minimal, valid names · [ ] no recursion or mid-run questions
+**Subagent skills:** [ ] body = system prompt · [ ] states task is its entire context · [ ] `allowed-tools` minimal, valid names · [ ] check current delegation policy · [ ] no mid-run questions
 
 **Deploy:** [ ] confirm discovery (appears in skill list / index) · [ ] invoke `/name` or `run_skill` to confirm it loads · [ ] commit to git
 
