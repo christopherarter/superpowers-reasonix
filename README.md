@@ -1,5 +1,9 @@
 # superpowers-reasonix
 
+<!-- yarkr:badges:start -->
+[![Indexed on Yarkr](https://api.yarkr.com/functions/v1/api/api/v1/badges/repos/christopherarter/superpowers-reasonix/version.svg)](https://yarkr.com/arks/christopherarter/superpowers-reasonix)
+<!-- yarkr:badges:end -->
+
 Process skills that give a [Reasonix](https://github.com/esengine/DeepSeek-Reasonix) coding agent the disciplines of a careful engineer: write the test first, debug from evidence, plan before coding, verify before claiming done. Each one loads at the moment it applies.
 
 A port of [obra/superpowers](https://github.com/obra/superpowers) for Reasonix (the DeepSeek-Reasonix CLI) and DeepSeek models. Same disciplines, rewritten for Reasonix's tools, subagent model, and skill format. It is not a 1:1 transliteration. [Adaptations](#adaptations-from-claude-code-superpowers) covers what changed and why.
@@ -67,6 +71,40 @@ Then copy [`AGENTS.md`](./AGENTS.md) (or the trimmed [`AGENTS.md.example`](./AGE
 **Verify:** in a session, `/skill paths` confirms the root is seen and `/skills` lists what was discovered. Described skills appear in the host's session-context catalog.
 
 </details>
+
+<!-- yarkr:install:start -->
+## Install with Yarkr
+
+This repo is indexed on [Yarkr](https://yarkr.com/arks/christopherarter/superpowers-reasonix) as the ark [christopherarter/superpowers-reasonix](https://yarkr.com/arks/christopherarter/superpowers-reasonix), so its skills install into Claude Code, Codex, Cursor and other agent harnesses with one command.
+
+### CLI
+
+Install the whole ark, which Yarkr keeps equal to this repo:
+
+```bash
+npx yarkr-cli sync christopherarter/superpowers-reasonix
+```
+
+Or add individual skills:
+
+```bash
+npx yarkr-cli add skill:christopherarter/superpowers-reasonix/superpowers-brainstorming
+npx yarkr-cli add skill:christopherarter/superpowers-reasonix/superpowers-diagnosing-superpowers
+npx yarkr-cli add skill:christopherarter/superpowers-reasonix/superpowers-executing-plans
+```
+
+No Node.js? `curl -fsSL https://yarkr.com/install.sh | sh` (macOS, Linux) or `irm https://yarkr.com/install.ps1 | iex` (Windows PowerShell) installs `yarkr` as a standalone binary; then type `yarkr` in place of `npx yarkr-cli`.
+
+### MCP
+
+Connect your agent to the ark over MCP:
+
+```bash
+npx yarkr-cli mcp add christopherarter/superpowers-reasonix
+```
+
+Or point any MCP client at `https://api.yarkr.com/functions/v1/api/mcp/o/christopherarter/superpowers-reasonix`.
+<!-- yarkr:install:end -->
 
 ## How a session uses them
 
